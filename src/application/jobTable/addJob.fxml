@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.191" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox maxWidth="50.0" prefHeight="200.0" prefWidth="50.0" />
+            <VBox maxWidth="225.0" minWidth="225.0" prefHeight="200.0" prefWidth="225.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Job Name:" textAlignment="CENTER" wrappingWidth="225.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+                  <TextArea prefHeight="28.0" prefWidth="226.0" wrapText="true" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="225.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Job Location:" textAlignment="CENTER" wrappingWidth="225.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+                  <TextArea prefHeight="28.0" prefWidth="226.0" wrapText="true" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="225.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Job Description:" textAlignment="CENTER" wrappingWidth="225.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+                  <TextArea prefHeight="28.0" prefWidth="226.0" wrapText="true" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="225.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+               </children>
+            </VBox>
+            <VBox layoutX="10.0" layoutY="10.0" maxWidth="50.0" prefHeight="200.0" prefWidth="50.0" />
+            <VBox layoutX="60.0" layoutY="10.0" maxWidth="225.0" minWidth="225.0" prefHeight="200.0" prefWidth="225.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Job Estimate:" textAlignment="CENTER" wrappingWidth="225.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+                  <TextArea prefHeight="28.0" prefWidth="226.0" wrapText="true" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="225.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Job Start Date:" textAlignment="CENTER" wrappingWidth="225.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+                  <TextArea prefHeight="28.0" prefWidth="226.0" wrapText="true" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="225.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Job End Date:" textAlignment="CENTER" wrappingWidth="225.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+                  <TextArea prefHeight="28.0" prefWidth="226.0" wrapText="true" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="225.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+               </children>
+            </VBox>
+            <VBox layoutX="10.0" layoutY="10.0" maxWidth="50.0" prefHeight="200.0" prefWidth="50.0" />
+         </children>
+      </HBox>
+   </center>
+   <bottom>
+      <Button maxHeight="35.0" maxWidth="70.0" minHeight="35.0" minWidth="70.0" mnemonicParsing="false" text="Save" textAlignment="JUSTIFY" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <BorderPane.margin>
+            <Insets bottom="5.0" />
+         </BorderPane.margin>
+      </Button>
+   </bottom>
+</BorderPane>
