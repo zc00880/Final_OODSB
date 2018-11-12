@@ -22,7 +22,7 @@ public class ReadExcel {
 		this.inputFile = inputFile;
 	}
 
-	public void read() throws IOException {
+	public void read() throws IOException { //Read ALL excel file data, not used currently
 		File inputWorkbook = new File(inputFile);
 		Workbook w;
 		try {
@@ -52,13 +52,13 @@ public class ReadExcel {
 		}
 	}
 	
-	public Job readJob(int index) throws BiffException, IOException {
+	public Job readJob(int index) throws BiffException, IOException { //Reads job row and returns job object
 		File inputWorkbook = new File(inputFile);
 		Workbook w = Workbook.getWorkbook(inputWorkbook);
-		Sheet sheet = w.getSheet(0);
+		Sheet sheet = w.getSheet(0); //Initialize excel file
 		
-		Cell cell = sheet.getCell(0, index);
-		String jobName = cell.getContents();
+		Cell cell = sheet.getCell(0, index); //Current cell directory (x, y) axis
+		String jobName = cell.getContents(); //Gets contents of current cell
 		cell = sheet.getCell(1, index);
 		String jobLocation = cell.getContents();
 		cell = sheet.getCell(2, index);
@@ -74,7 +74,7 @@ public class ReadExcel {
 		return job;
 	}
 
-	public ObservableList<String> readJobNames() throws IOException {
+	public ObservableList<String> readJobNames() throws IOException { //Gets job names for live list on home screen
 		File inputWorkbook = new File(inputFile);
 		Workbook w;
 		ObservableList<String> jobList = FXCollections.observableArrayList();
@@ -87,7 +87,7 @@ public class ReadExcel {
 				Cell cell = sheet.getCell(0, i);
 				CellType type = cell.getType();
 				System.out.println(cell.getContents());
-				jobList.add(cell.getContents().toString());
+				jobList.add(cell.getContents().toString()); //Adds all names to a list 
 			}
 
 		} catch (BiffException e) {
@@ -96,12 +96,12 @@ public class ReadExcel {
 		return jobList;
 	}
 
-	public static void main(String[] args) throws IOException {
-		ReadExcel test = new ReadExcel();
+	public static void main(String[] args) throws IOException { //Testing purposes
+		/*ReadExcel test = new ReadExcel();
 		String fileName = "test";
 		test.setInputFile(System.getProperty("user.home") + "/Desktop/" + fileName + ".xls");
 		test.readJobNames();
-		System.out.println(test.readJobNames().get(0).toString());
+		System.out.println(test.readJobNames().get(0).toString());*/
 	}
 
 }
