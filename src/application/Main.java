@@ -10,11 +10,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import jxl.write.WritableCellFormat;
 
 public class Main extends Application {
 
 	private static BorderPane mainLayout;
 	private Stage primaryStage;
+	private WritableCellFormat times;
 	
 	public void start (Stage primaryStage) throws IOException {
 		this.primaryStage = primaryStage;
@@ -47,12 +49,21 @@ public class Main extends Application {
 		mainLayout.setCenter(addJob);
 	}
 	
+	public static void showEditJobScene() throws IOException {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(Main.class.getResource("jobTable/editJob.fxml"));
+		BorderPane addJob = loader.load();
+		mainLayout.setCenter(addJob);
+	}
+	
 	public static void showAddResourceScene() throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main.class.getResource("resourceTable/addResource.fxml"));
 		BorderPane addResource = loader.load();
 		mainLayout.setCenter(addResource);
 	}
+	
+	
 	
 	public static void main(String[] args) {
 		launch();

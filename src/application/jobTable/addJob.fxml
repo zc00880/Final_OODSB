@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.191" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.jobTable.addJobController">
    <center>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -21,7 +21,7 @@
                         <Font size="24.0" />
                      </font>
                   </Text>
-                  <TextArea prefHeight="28.0" prefWidth="226.0" wrapText="true" />
+                  <TextArea fx:id="jobName" prefHeight="28.0" prefWidth="226.0" wrapText="true" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="225.0">
                      <font>
                         <Font size="24.0" />
@@ -32,7 +32,7 @@
                         <Font size="24.0" />
                      </font>
                   </Text>
-                  <TextArea prefHeight="28.0" prefWidth="226.0" wrapText="true" />
+                  <TextArea fx:id="jobLocation" prefHeight="28.0" prefWidth="226.0" wrapText="true" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="225.0">
                      <font>
                         <Font size="24.0" />
@@ -43,7 +43,7 @@
                         <Font size="24.0" />
                      </font>
                   </Text>
-                  <TextArea prefHeight="28.0" prefWidth="226.0" wrapText="true" />
+                  <TextArea fx:id="jobDescription" prefHeight="28.0" prefWidth="226.0" wrapText="true" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="225.0">
                      <font>
                         <Font size="24.0" />
@@ -59,7 +59,7 @@
                         <Font size="24.0" />
                      </font>
                   </Text>
-                  <TextArea prefHeight="28.0" prefWidth="226.0" wrapText="true" />
+                  <TextArea fx:id="jobEstimate" prefHeight="28.0" prefWidth="226.0" wrapText="true" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="225.0">
                      <font>
                         <Font size="24.0" />
@@ -70,7 +70,7 @@
                         <Font size="24.0" />
                      </font>
                   </Text>
-                  <TextArea prefHeight="28.0" prefWidth="226.0" wrapText="true" />
+                  <TextArea fx:id="jobStartDate" prefHeight="28.0" prefWidth="226.0" wrapText="true" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="225.0">
                      <font>
                         <Font size="24.0" />
@@ -81,7 +81,7 @@
                         <Font size="24.0" />
                      </font>
                   </Text>
-                  <TextArea prefHeight="28.0" prefWidth="226.0" wrapText="true" />
+                  <TextArea fx:id="jobEndDate" prefHeight="28.0" prefWidth="226.0" wrapText="true" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="225.0">
                      <font>
                         <Font size="24.0" />
@@ -94,7 +94,7 @@
       </HBox>
    </center>
    <bottom>
-      <Button maxHeight="35.0" maxWidth="70.0" minHeight="35.0" minWidth="70.0" mnemonicParsing="false" text="Save" textAlignment="JUSTIFY" BorderPane.alignment="CENTER">
+      <Button fx:id="saveJob" maxHeight="35.0" maxWidth="70.0" minHeight="35.0" minWidth="70.0" mnemonicParsing="false" onAction="#saveJob" text="Save" textAlignment="JUSTIFY" BorderPane.alignment="CENTER">
          <font>
             <Font size="18.0" />
          </font>

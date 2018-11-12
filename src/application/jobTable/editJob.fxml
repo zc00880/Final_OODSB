@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.jobTable.addJobController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.jobTable.editJobController">
    <center>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -94,7 +94,7 @@
       </HBox>
    </center>
    <bottom>
-      <Button fx:id="saveJob" maxHeight="35.0" maxWidth="70.0" minHeight="35.0" minWidth="70.0" mnemonicParsing="false" onAction="#saveJob" text="Save" textAlignment="JUSTIFY" BorderPane.alignment="CENTER">
+      <Button fx:id="saveJob" maxHeight="35.0" maxWidth="98.0" minHeight="35.0" minWidth="70.0" mnemonicParsing="false" onAction="#editJob" prefHeight="35.0" prefWidth="98.0" text="Update" textAlignment="JUSTIFY" BorderPane.alignment="CENTER">
          <font>
             <Font size="18.0" />
          </font>
