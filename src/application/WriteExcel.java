@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.Locale;
 
 import application.jobTable.Job;
+import application.resourceTable.Resource;
+import jxl.Cell;
 import jxl.CellView;
 import jxl.Workbook;
 import jxl.WorkbookSettings;
@@ -56,6 +58,32 @@ public class WriteExcel {
 		}
 	}
 	
+	public void write(Resource resource) throws IOException, WriteException, BiffException {
+		File file = new File(inputFile);
+		if (file.exists()) {
+			Workbook workbookCopy = Workbook.getWorkbook(new File(inputFile)); //Get excel file
+			WritableWorkbook workbook = Workbook.createWorkbook(new File(inputFile), workbookCopy); //Make a writable excel
+			WritableSheet excelSheet = workbook.getSheet(1);  //Get sheet within excel file to edit
+			createResource(excelSheet, resource.name, resource.quantity, resource.description); //Add job to new row
+			workbook.write(); //MUST HAVE ON ALL WRITE METHODS
+			workbook.close(); //MUST HAVE ON ALL WRITE METHODS
+
+		} else { //If file doesn't exist, make a new excel file on the desktop
+//			WorkbookSettings wbSettings = new WorkbookSettings();
+//			wbSettings.setLocale(new Locale("en", "EN"));
+//
+//			WritableWorkbook workbook = Workbook.createWorkbook(file, wbSettings); //All defaults from jxl api
+//			workbook.createSheet("Report", 0);
+//			WritableSheet excelSheet = workbook.getSheet(0);
+//			createLabel(excelSheet); //Creates headers
+//			createContent(excelSheet); //Null method
+//			createJob(excelSheet, job.name, job.location, job.description, job.estimate, job.startDate, job.endDate); //Creates a new job for the new file
+//
+//			workbook.write();
+//			workbook.close();
+		}
+	}
+	
 	public void updateJob(Job job, int index) throws BiffException, IOException, RowsExceededException, WriteException {
 		File file = new File(inputFile);
 		Workbook workbookCopy = Workbook.getWorkbook(new File(inputFile));
@@ -73,6 +101,20 @@ public class WriteExcel {
 		workbook.close();
 	}
 	
+	public void updateResource(Resource resource , int index) throws BiffException, IOException, RowsExceededException, WriteException {
+		File file = new File(inputFile);
+		Workbook workbookCopy = Workbook.getWorkbook(new File(inputFile));
+		WritableWorkbook workbook = Workbook.createWorkbook(new File(inputFile), workbookCopy);
+		WritableSheet excelSheet = workbook.getSheet(1);
+		
+		addLabel(excelSheet, 0, index, resource.name); //Gets job and replaces row with new job
+		addLabel(excelSheet, 1, index, resource.quantity);
+		addLabel(excelSheet, 2, index, resource.description);
+
+		workbook.write();
+		workbook.close();
+	}
+	
 	private void createJob(WritableSheet sheet, String name, String location, String description, String estimate,
 			String startDate, String endDate) throws WriteException, RowsExceededException {
 		int rows = sheet.getRows(); //Gets num of rows and adds job to bottom row
@@ -84,13 +126,43 @@ public class WriteExcel {
 		addLabel(sheet, 5, rows, endDate);
 	}
 	
+	private void createResource(WritableSheet sheet, String name, String quantity, String description) throws WriteException, RowsExceededException {
+		int rows = sheet.getRows(); //Gets num of rows and adds job to bottom row
+		addLabel(sheet, 0, rows, name);
+		addLabel(sheet, 1, rows, quantity);
+		addLabel(sheet, 2, rows, description);
+	}
+	
 	public void deleteJob(int index) throws BiffException, IOException, WriteException {
 		File file = new File(inputFile);
 		Workbook workbookCopy = Workbook.getWorkbook(new File(inputFile));
 		WritableWorkbook workbook = Workbook.createWorkbook(new File(inputFile), workbookCopy);
 		WritableSheet excelSheet = workbook.getSheet(0);
 		
-		excelSheet.removeRow(index); //Deletes whole job row
+		for (int i = 1; i < excelSheet.getRows(); i++) {
+			Cell c = excelSheet.getCell(0, i);
+			String test = c.getContents();
+			if (test.equals(String.valueOf(index))) 
+				excelSheet.removeRow(i); //Deletes whole job row
+		}
+		
+		workbook.write();
+		workbook.close();
+	}
+	
+	public void deleteResource(int index) throws BiffException, IOException, WriteException {
+		File file = new File(inputFile);
+		Workbook workbookCopy = Workbook.getWorkbook(new File(inputFile));
+		WritableWorkbook workbook = Workbook.createWorkbook(new File(inputFile), workbookCopy);
+		WritableSheet excelSheet = workbook.getSheet(1);
+
+		for (int i = 1; i < excelSheet.getRows(); i++) {
+			Cell c = excelSheet.getCell(0, i);
+			String test = c.getContents();
+			if (test.equals(String.valueOf(index))) 
+				excelSheet.removeRow(i); //Deletes whole job row
+		}
+		
 		workbook.write();
 		workbook.close();
 	}

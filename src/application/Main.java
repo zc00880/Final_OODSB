@@ -63,8 +63,6 @@ public class Main extends Application {
 		mainLayout.setCenter(addResource);
 	}
 	
-	
-	
 	public static void main(String[] args) {
 		launch();
 	}

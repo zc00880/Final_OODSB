@@ -20,7 +20,6 @@ public class editJobController {
 	ReadExcel reader = new ReadExcel();
 	MainItemsController mainItems = new MainItemsController();
 	public static int index;
-	public String fileName = "test";
 
     @FXML
     private TextArea jobName;
@@ -54,17 +53,16 @@ public class editJobController {
     	
     	Job job = new Job(name, locationString, description, estimate, startDate, endDate); //Create new job to replace old job
     	WriteExcel jobWriter = new WriteExcel();
-    	jobWriter.setOutputFile(System.getProperty("user.home") + "/Desktop/" + fileName + ".xls");
+    	jobWriter.setOutputFile("Stewart_Concrete_Finishing.xls");
     	jobWriter.updateJob(job, index); //Adds new job to selected index
     	System.out.println("Job successfully updated");
     	main.showMainItems();
     }
     
-    
     @FXML
     public void initialize() throws BiffException, IOException{
-    	String fileName = "test";
-		reader.setInputFile(System.getProperty("user.home") + "/Desktop/" + fileName + ".xls");
+    	//String fileName = "test";
+		reader.setInputFile("Stewart_Concrete_Finishing.xls");
 		Job job = reader.readJob(mainItems.getSelectedIndex()); //Gets selected job to inject into new window
 		index = mainItems.getSelectedIndex();
 		
@@ -74,7 +72,5 @@ public class editJobController {
 		jobEstimate.setText(job.estimate);
 		jobStartDate.setText(job.startDate);
 		jobEndDate.setText(job.endDate);
-		
     }
-
 }

@@ -20,7 +20,6 @@ public class addJobController {
 	public String estimate;
 	public String startDate;
 	public String endDate;
-	public String fileName = "test";
 
     @FXML
     private ResourceBundle resources;
@@ -60,7 +59,7 @@ public class addJobController {
     	
     	Job job = new Job(name, locationString, description, estimate, startDate, endDate); //Create new job
     	WriteExcel jobWriter = new WriteExcel();
-    	jobWriter.setOutputFile(System.getProperty("user.home") + "/Desktop/" + fileName + ".xls");
+    	jobWriter.setOutputFile("Stewart_Concrete_Finishing.xls");
     	jobWriter.write(job); //Adds new row to excel file
     	System.out.println("Job successfully added");
     	main.showMainItems();

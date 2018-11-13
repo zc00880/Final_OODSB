@@ -40,12 +40,12 @@
                         <Font size="24.0" />
                      </font>
                   </Text>
-                  <ListView prefHeight="290.0" prefWidth="175.0" />
+                  <ListView fx:id="resourceList" prefHeight="290.0" prefWidth="175.0" />
                   <HBox prefHeight="39.0" prefWidth="175.0">
                      <children>
                         <Button mnemonicParsing="false" onAction="#goAddResource" prefHeight="35.0" prefWidth="78.0" text="Add" />
                         <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="78.0" text="Edit" />
-                        <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="78.0" text="Delete" />
+                        <Button mnemonicParsing="false" onAction="#deleteResource" prefHeight="35.0" prefWidth="78.0" text="Delete" />
                      </children>
                   </HBox>
                </children>
