@@ -38,18 +38,17 @@ public class editResourceController {
     	String name = resourceName.getText(); //Gets text from textFields to update job
     	String quantity = resourceQuantity.getText();
     	String description = resourceDescription.getText();
-
     	
     	Resource resource = new Resource(name, quantity, description); //Create new job to replace old job
     	WriteExcel jobWriter = new WriteExcel();
     	jobWriter.setOutputFile("Stewart_Concrete_Finishing.xls");
     	jobWriter.updateResource(resource, index); //Adds new job to selected index
-    	System.out.println("Job successfully updated");
+    	System.out.println("Resource successfully updated");
     	main.showMainItems();
     }
     
     @FXML
-    public void initialize() throws BiffException, IOException{
+    public void initialize() throws BiffException, IOException, WriteException{
 		reader.setInputFile("Stewart_Concrete_Finishing.xls");
 		Resource resource = reader.readResource(mainItems.getSelectedIndex()); //Gets selected job to inject into new window
 		index = mainItems.getSelectedIndex();

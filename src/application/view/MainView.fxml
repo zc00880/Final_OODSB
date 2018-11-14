@@ -5,9 +5,9 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="450.0" maxWidth="-Infinity" minHeight="450.0" minWidth="-Infinity" prefHeight="450.0" prefWidth="610.0" xmlns="http://javafx.com/javafx/8.0.191" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.MainViewController">
+<BorderPane maxHeight="450.0" maxWidth="-Infinity" minHeight="450.0" minWidth="-Infinity" prefHeight="450.0" prefWidth="610.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.MainViewController">
    <bottom>
-      <Button fx:id="goHome" mnemonicParsing="false" onAction="#goHome" prefHeight="35.0" prefWidth="70.0" text="Home" BorderPane.alignment="CENTER">
+      <Button fx:id="goHome" mnemonicParsing="false" onAction="#goHome" prefHeight="35.0" prefWidth="100.0" text="Home" BorderPane.alignment="CENTER">
          <font>
             <Font size="14.0" />
          </font>

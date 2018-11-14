@@ -8,6 +8,7 @@ import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import application.jobTable.Job;
 import application.resourceTable.Resource;
@@ -17,9 +18,12 @@ import jxl.Cell;
 import jxl.CellType;
 import jxl.Sheet;
 import jxl.Workbook;
+import jxl.format.CellFormat;
+import jxl.format.Colour;
 import jxl.read.biff.BiffException;
 import jxl.write.Label;
 import jxl.write.WritableCell;
+import jxl.write.WritableCellFormat;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
@@ -38,24 +42,14 @@ public class ReadExcel {
 		File inputWorkbook = new File(inputFile);
 		Workbook w;
 		try {
-			//System.out.println("testt");
 			w = Workbook.getWorkbook(inputWorkbook);
 			// Get the first sheet
 			Sheet sheet = w.getSheet(0);
-			// Loop over first 10 column and lines
 
 			for (int j = 0; j < sheet.getRows(); j++) {
 				for (int i = 0; i < sheet.getColumns(); i++) {
 					Cell cell = sheet.getCell(i, j);
-					CellType type = cell.getType();
-					if (type == CellType.LABEL) {
-						System.out.println("I got a label " + cell.getContents());
-						list.add(cell.getContents().toString());
-					}
-
-					if (type == CellType.NUMBER) {
-						System.out.println("I got a number " + cell.getContents());
-					}
+					list.add(cell.getContents().toString());
 				}
 			}
 
@@ -92,16 +86,13 @@ public class ReadExcel {
 		Workbook w;
 		ObservableList<String> jobList = FXCollections.observableArrayList();
 		try {
-			//System.out.println("test");
 			w = Workbook.getWorkbook(inputWorkbook);
-			// Get the first sheet
 			Sheet sheet = w.getSheet(0);
 
 			for (int i = 1; i < sheet.getRows(); i++) {
 				Cell cell = sheet.getCell(0, i);
-				CellType type = cell.getType();
-				System.out.println(cell.getContents());
-				jobList.add(cell.getContents().toString()); //Adds all names to a list 
+				Cell cell2 = sheet.getCell(1, i);
+				jobList.add(cell.getContents().toString() + " - " + cell2.getContents().toString()); //Adds all names to a list 
 			}
 
 		} catch (Exception e) {
@@ -134,11 +125,11 @@ public class ReadExcel {
 		return jobList;
 	}
 
-	public Resource readResource(int index) throws BiffException, IOException { //Reads job row and returns job object
+	public Resource readResource(int index) throws BiffException, IOException, WriteException { //Reads job row and returns job object
 		File inputWorkbook = new File(inputFile);
 		Workbook w = Workbook.getWorkbook(inputWorkbook);
 		Sheet sheet = w.getSheet(1); //Initialize excel file
-
+		
 		Cell 
 		cell = sheet.getCell(0, index); //Current cell directory (x, y) axis
 		String resourceName = cell.getContents(); //Gets contents of current cell
@@ -146,7 +137,6 @@ public class ReadExcel {
 		String resourceQuantity = cell.getContents();
 		cell = sheet.getCell(2, index);
 		String resourceDescription = cell.getContents();
-
 
 		Resource resource = new Resource(resourceName, resourceQuantity, resourceDescription);
 		return resource;
@@ -156,15 +146,14 @@ public class ReadExcel {
 		File inputWorkbook = new File(inputFile);
 		Workbook w;
 		ObservableList<String> resourceList = FXCollections.observableArrayList();
-
+		
 		try {
 			w = Workbook.getWorkbook(inputWorkbook);
-			// Get the first sheet
+			// Get the second sheet
 			Sheet sheet = w.getSheet(1);
 			for (int i = 1; i < sheet.getRows(); i++) {
 				Cell cell = sheet.getCell(0, i);
 				Cell cell2 = sheet.getCell(1, i);
-				//System.out.println(cell.getContents());
 				resourceList.add(cell.getContents().toString() + ": " + cell2.getContents()); //Adds all resource names to a list 
 			}
 		}

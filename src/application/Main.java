@@ -52,8 +52,8 @@ public class Main extends Application {
 	public static void showEditJobScene() throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main.class.getResource("jobTable/editJob.fxml"));
-		BorderPane addJob = loader.load();
-		mainLayout.setCenter(addJob);
+		BorderPane editJob = loader.load();
+		mainLayout.setCenter(editJob);
 	}
 	
 	public static void showAddResourceScene() throws IOException {
@@ -63,6 +63,12 @@ public class Main extends Application {
 		mainLayout.setCenter(addResource);
 	}
 	
+	public static void showEditResourceScene() throws IOException {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(Main.class.getResource("resourceTable/editResource.fxml"));
+		BorderPane editResource = loader.load();
+		mainLayout.setCenter(editResource);
+	}
 	public static void main(String[] args) {
 		launch();
 	}

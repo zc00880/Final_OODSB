@@ -6,10 +6,12 @@ import java.util.Locale;
 
 import application.jobTable.Job;
 import application.resourceTable.Resource;
+import javafx.scene.paint.Color;
 import jxl.Cell;
 import jxl.CellView;
 import jxl.Workbook;
 import jxl.WorkbookSettings;
+import jxl.format.Colour;
 import jxl.format.UnderlineStyle;
 import jxl.read.biff.BiffException;
 import jxl.write.Formula;
@@ -57,56 +59,40 @@ public class WriteExcel {
 			workbook.close();
 		}
 	}
-	
+
 	public void write(Resource resource) throws IOException, WriteException, BiffException {
 		File file = new File(inputFile);
-		if (file.exists()) {
-			Workbook workbookCopy = Workbook.getWorkbook(new File(inputFile)); //Get excel file
-			WritableWorkbook workbook = Workbook.createWorkbook(new File(inputFile), workbookCopy); //Make a writable excel
-			WritableSheet excelSheet = workbook.getSheet(1);  //Get sheet within excel file to edit
-			createResource(excelSheet, resource.name, resource.quantity, resource.description); //Add job to new row
-			workbook.write(); //MUST HAVE ON ALL WRITE METHODS
-			workbook.close(); //MUST HAVE ON ALL WRITE METHODS
-
-		} else { //If file doesn't exist, make a new excel file on the desktop
-//			WorkbookSettings wbSettings = new WorkbookSettings();
-//			wbSettings.setLocale(new Locale("en", "EN"));
-//
-//			WritableWorkbook workbook = Workbook.createWorkbook(file, wbSettings); //All defaults from jxl api
-//			workbook.createSheet("Report", 0);
-//			WritableSheet excelSheet = workbook.getSheet(0);
-//			createLabel(excelSheet); //Creates headers
-//			createContent(excelSheet); //Null method
-//			createJob(excelSheet, job.name, job.location, job.description, job.estimate, job.startDate, job.endDate); //Creates a new job for the new file
-//
-//			workbook.write();
-//			workbook.close();
-		}
+		Workbook workbookCopy = Workbook.getWorkbook(new File(inputFile)); //Get excel file
+		WritableWorkbook workbook = Workbook.createWorkbook(new File(inputFile), workbookCopy); //Make a writable excel
+		WritableSheet excelSheet = workbook.getSheet(1);  //Get sheet within excel file to edit
+		createResource(excelSheet, resource.name, resource.quantity, resource.description); //Add job to new row
+		workbook.write(); //MUST HAVE ON ALL WRITE METHODS
+		workbook.close(); //MUST HAVE ON ALL WRITE METHODS
 	}
-	
+
 	public void updateJob(Job job, int index) throws BiffException, IOException, RowsExceededException, WriteException {
 		File file = new File(inputFile);
 		Workbook workbookCopy = Workbook.getWorkbook(new File(inputFile));
 		WritableWorkbook workbook = Workbook.createWorkbook(new File(inputFile), workbookCopy);
 		WritableSheet excelSheet = workbook.getSheet(0);
-		
+
 		addLabel(excelSheet, 0, index, job.name); //Gets job and replaces row with new job
 		addLabel(excelSheet, 1, index, job.location);
 		addLabel(excelSheet, 2, index, job.description);
 		addLabel(excelSheet, 3, index, job.estimate);
 		addLabel(excelSheet, 4, index, job.startDate);
 		addLabel(excelSheet, 5, index, job.endDate);
-		
+
 		workbook.write();
 		workbook.close();
 	}
-	
+
 	public void updateResource(Resource resource , int index) throws BiffException, IOException, RowsExceededException, WriteException {
 		File file = new File(inputFile);
 		Workbook workbookCopy = Workbook.getWorkbook(new File(inputFile));
 		WritableWorkbook workbook = Workbook.createWorkbook(new File(inputFile), workbookCopy);
 		WritableSheet excelSheet = workbook.getSheet(1);
-		
+
 		addLabel(excelSheet, 0, index, resource.name); //Gets job and replaces row with new job
 		addLabel(excelSheet, 1, index, resource.quantity);
 		addLabel(excelSheet, 2, index, resource.description);
@@ -114,7 +100,7 @@ public class WriteExcel {
 		workbook.write();
 		workbook.close();
 	}
-	
+
 	private void createJob(WritableSheet sheet, String name, String location, String description, String estimate,
 			String startDate, String endDate) throws WriteException, RowsExceededException {
 		int rows = sheet.getRows(); //Gets num of rows and adds job to bottom row
@@ -125,48 +111,42 @@ public class WriteExcel {
 		addLabel(sheet, 4, rows, startDate);
 		addLabel(sheet, 5, rows, endDate);
 	}
-	
+
 	private void createResource(WritableSheet sheet, String name, String quantity, String description) throws WriteException, RowsExceededException {
 		int rows = sheet.getRows(); //Gets num of rows and adds job to bottom row
+//		for (int i = 0; i < rows; i++) {
+//			
+//		}
+		
 		addLabel(sheet, 0, rows, name);
 		addLabel(sheet, 1, rows, quantity);
 		addLabel(sheet, 2, rows, description);
 	}
-	
+
 	public void deleteJob(int index) throws BiffException, IOException, WriteException {
 		File file = new File(inputFile);
 		Workbook workbookCopy = Workbook.getWorkbook(new File(inputFile));
 		WritableWorkbook workbook = Workbook.createWorkbook(new File(inputFile), workbookCopy);
 		WritableSheet excelSheet = workbook.getSheet(0);
-		
-		for (int i = 1; i < excelSheet.getRows(); i++) {
-			Cell c = excelSheet.getCell(0, i);
-			String test = c.getContents();
-			if (test.equals(String.valueOf(index))) 
-				excelSheet.removeRow(i); //Deletes whole job row
-		}
-		
+
+		excelSheet.removeRow(index);
+
 		workbook.write();
 		workbook.close();
 	}
-	
+
 	public void deleteResource(int index) throws BiffException, IOException, WriteException {
 		File file = new File(inputFile);
 		Workbook workbookCopy = Workbook.getWorkbook(new File(inputFile));
 		WritableWorkbook workbook = Workbook.createWorkbook(new File(inputFile), workbookCopy);
 		WritableSheet excelSheet = workbook.getSheet(1);
 
-		for (int i = 1; i < excelSheet.getRows(); i++) {
-			Cell c = excelSheet.getCell(0, i);
-			String test = c.getContents();
-			if (test.equals(String.valueOf(index))) 
-				excelSheet.removeRow(i); //Deletes whole job row
-		}
-		
+		excelSheet.removeRow(index);
+
 		workbook.write();
 		workbook.close();
 	}
-	
+
 	private void createLabel(WritableSheet sheet) throws WriteException { //Default jxl api
 		// Lets create a times font
 		WritableFont times10pt = new WritableFont(WritableFont.TIMES, 10);
@@ -238,8 +218,23 @@ public class WriteExcel {
 			throws WriteException, RowsExceededException {
 		Label label;
 		label = new Label(column, row, s);
+		
+		//below is for formatting spreadsheet colors, not used
+//		if (s.equals("0")) {
+//			label = new Label(column, row, s, getCellFormat(Colour.RED));
+//			System.out.println("test");
+//		}
 		sheet.addCell(label);
 	}
+	
+	private WritableCellFormat getCellFormat(Colour colour) throws WriteException {
+	    WritableFont cellFont = new WritableFont(WritableFont.COURIER, 12);
+	    WritableCellFormat cellFormat = new WritableCellFormat(cellFont);
+	    cellFormat.setBackground(colour);
+	    cellFont.setBoldStyle(WritableFont.BOLD);
+	    System.out.println("test2");
+	    return cellFormat;
+	  }
 
 	public static void main(String[] args) throws WriteException, IOException, BiffException {
 		/*WriteExcel test = new WriteExcel();
