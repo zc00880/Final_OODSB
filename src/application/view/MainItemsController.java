@@ -2,19 +2,25 @@ package application.view;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import application.Main;
 import application.ReadExcel;
 import application.WriteExcel;
+import dateCalendar.dateSelection;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -34,12 +40,27 @@ public class MainItemsController implements Initializable {
 
 	@FXML
 	private TextField textBox;
+	
+	@FXML
+	private DatePicker dateString;
 
 	@FXML //Show selected item
 	void displaySelected(MouseEvent event) {
 //				int jobNo = jobList.getSelectionModel().getSelectedIndex(); //Returns the index of selected job in the jobList
 //				index = (jobNo + 1); //Sets global variable of selected index
 //				textBox.setText(String.valueOf(jobNo + 1)); //Shows current selected item
+	}
+	
+	@FXML
+	void printOutDate() {
+		String date = dateString.getValue().format(DateTimeFormatter.ofPattern("MM-dd-yyyy"));
+		String month = date.substring(0, 2);
+		String day = date.substring(3,5);
+		String year = date.substring(6,10);
+		dateSelection newDate = new dateSelection(month, day, year);
+
+		textBox.setText(date);
+		
 	}
 
 	@FXML //Delete job

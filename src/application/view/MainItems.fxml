@@ -15,7 +15,7 @@
    <center>
       <Pane prefHeight="400.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <DatePicker layoutX="7.0" layoutY="10.0" prefHeight="35.0" prefWidth="170.0" />
+            <DatePicker fx:id="dateString" layoutX="7.0" layoutY="10.0" onAction="#printOutDate" prefHeight="35.0" prefWidth="170.0" />
             <VBox layoutX="188.0" layoutY="10.0" prefHeight="350.0" prefWidth="200.0">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Job Pool:" textAlignment="CENTER" wrappingWidth="200.0">
@@ -50,7 +50,7 @@
                   </HBox>
                </children>
             </VBox>
-            <TextField fx:id="textBox" editable="false" layoutX="18.0" layoutY="173.0" maxWidth="50.0" />
+            <TextField fx:id="textBox" editable="false" layoutX="18.0" layoutY="173.0" maxWidth="100.0" onAction="#printOutDate" />
          </children>
       </Pane>
    </center>
