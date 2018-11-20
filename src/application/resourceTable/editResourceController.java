@@ -43,7 +43,6 @@ public class editResourceController {
     	WriteExcel jobWriter = new WriteExcel();
     	jobWriter.setOutputFile("Stewart_Concrete_Finishing.xls");
     	jobWriter.updateResource(resource, index); //Adds new job to selected index
-    	System.out.println("Resource successfully updated");
     	main.showMainItems();
     }
     

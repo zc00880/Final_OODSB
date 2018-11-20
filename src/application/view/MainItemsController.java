@@ -8,30 +8,41 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
 import application.ReadExcel;
 import application.WriteExcel;
+import application.jobTable.Job;
 import dateCalendar.dateSelection;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
+import dateCalendar.dateController;
 
 public class MainItemsController implements Initializable {
 	private Main main;
 	ReadExcel reader = new ReadExcel();
 	public static int index;
-
+	public static String dateIndex;
+	ObservableList<String> dayInfo = FXCollections.observableArrayList();
 	@FXML
 	private ListView<String> jobList;
 
@@ -39,30 +50,76 @@ public class MainItemsController implements Initializable {
 	private ListView<String> resourceList;
 
 	@FXML
-	private TextField textBox;
-	
+	public ListView<String> dateList;
+
+	//	@FXML
+	//	private TextField textBox;
+
 	@FXML
 	private DatePicker dateString;
 
 	@FXML //Show selected item
 	void displaySelected(MouseEvent event) {
-//				int jobNo = jobList.getSelectionModel().getSelectedIndex(); //Returns the index of selected job in the jobList
-//				index = (jobNo + 1); //Sets global variable of selected index
-//				textBox.setText(String.valueOf(jobNo + 1)); //Shows current selected item
 	}
-	
+
 	@FXML
-	void printOutDate() {
+	public
+	void setDate() {
+		dateList.getItems().clear();
 		String date = dateString.getValue().format(DateTimeFormatter.ofPattern("MM-dd-yyyy"));
 		String month = date.substring(0, 2);
 		String day = date.substring(3,5);
 		String year = date.substring(6,10);
-		dateSelection newDate = new dateSelection(month, day, year);
+		String jobDateTotal = year + "-" +month +"-" +day;
+		ArrayList<String> remove = new ArrayList<String>(); 
+		boolean done = false;
+		int j=0;
+		for(int i=0;i<ReadExcel.allJobs.size();i++) {
+			String s = ReadExcel.allJobs.get(i).startDate;
+			String e = ReadExcel.allJobs.get(i).endDate;
 
-		textBox.setText(date);
-		
+			String monthstart = s.substring(0, 2);
+			String daystart = s.substring(3,5);
+			String yearstart = s.substring(6,10);
+			String completestart = yearstart + "-" + monthstart+ "-" + daystart;
+
+			String monthend = e.substring(0, 2);
+			String dayend = e.substring(3,5);
+			String yearend = e.substring(6,10);
+			String completeend = yearend + "-" + monthend + "-" + dayend;
+
+			LocalDate start = LocalDate.parse(completestart);
+			LocalDate end = LocalDate.parse(completeend);
+			ArrayList<LocalDate> totalDates = new ArrayList<>();
+			while (!start.isAfter(end)) {
+				totalDates.add(start);
+				start = start.plusDays(1);
+			}
+			j=0;
+			done =false;
+			while(j < totalDates.size() && done == false) {
+				String temp = totalDates.get(j).toString();
+				if(temp.equals(jobDateTotal)) {
+					String x = ReadExcel.allJobs.get(i).name;
+					if(!dayInfo.contains(x)) {
+						dayInfo.add(x);
+					}
+					done = true;
+
+				}
+
+				j++;
+			}
+		}
+//		BackgroundFill myBF = new BackgroundFill(Color.RED, new CornerRadii(1),new Insets(0.0,0.0,0.0,0.0));
+//		dateList.setBackground(new Background(myBF));
+		dateList.setItems(dayInfo);
+
 	}
-
+	@FXML
+	public void assignResource() throws IOException {
+		main.showAssignResourceScene();
+	}
 	@FXML //Delete job
 	void deleteJob(ActionEvent event) throws BiffException, IOException, WriteException {
 		WriteExcel jobWriter = new WriteExcel();
@@ -83,7 +140,7 @@ public class MainItemsController implements Initializable {
 	public int getSelectedIndex() { //Get selected job index to perform functions throughout the program
 		return index;
 	}
-	
+
 	@FXML
 	public void goAddJob() throws IOException {
 		main.showAddJobScene();
@@ -107,12 +164,15 @@ public class MainItemsController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		try {
+			ReadExcel.allJobs.clear();
+			ReadExcel.allResources.clear();
 			reader.setInputFile("Stewart_Concrete_Finishing.xls");
 			ObservableList<String> jobNames = reader.readJobNames(); //Get all job names from excel file
 			ObservableList<String> resourceNames = reader.readResourceNames(); //Get all job names from excel file
-
 			jobList.setItems(jobNames); //Show job names
 			resourceList.setItems(resourceNames);
+			//BackgroundFill myBF = new BackgroundFill(Color.RED, new CornerRadii(1),new Insets(0.0,0.0,0.0,0.0));
+			//jobList.setBackground(new Background(myBF));
 
 			resourceList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 
@@ -130,6 +190,17 @@ public class MainItemsController implements Initializable {
 						if (jobNames.get(i).equals(newValue)) 
 							index = i + 1;
 				}
+			});
+			dateList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+
+				public void changed (ObservableValue<? extends String> observable, String oldValue, String newValue) {					
+					for (int i = 0; i < dayInfo.size(); i++) 
+						if (dayInfo.get(i).equals(newValue)) {
+							index = i + 1;
+							dateIndex = dateList.getSelectionModel().getSelectedItems().toString();
+						}
+					
+				}	
 			});
 		} 
 		catch (IOException | WriteException | BiffException e) {

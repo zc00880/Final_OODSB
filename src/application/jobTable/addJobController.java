@@ -10,7 +10,9 @@ import javafx.scene.control.TextArea;
 import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
 import application.Main;
+import application.ReadExcel;
 import application.WriteExcel;
+import dateCalendar.dateController;
 
 public class addJobController {
 	private Main main;
@@ -20,6 +22,7 @@ public class addJobController {
 	public String estimate;
 	public String startDate;
 	public String endDate;
+	public String requirements;
 
     @FXML
     private ResourceBundle resources;
@@ -44,6 +47,9 @@ public class addJobController {
 
     @FXML
     private TextArea jobEndDate;
+    
+    @FXML
+    private TextArea jobRequirements;
 
     @FXML
     private Button saveJob;
@@ -56,12 +62,15 @@ public class addJobController {
     	estimate = jobEstimate.getText();
     	startDate = jobStartDate.getText();
     	endDate = jobEndDate.getText();
-    	
-    	Job job = new Job(name, locationString, description, estimate, startDate, endDate); //Create new job
+    	requirements = jobRequirements.getText();
+    	//dateController.addDates(startDate,endDate);
+    	dateController dc = new dateController();
+    	dc.addDates(startDate, endDate);
+    	Job job = new Job(name, locationString, description, estimate, startDate, endDate, requirements); //Create new job
+    	ReadExcel.allJobs.add(job);
     	WriteExcel jobWriter = new WriteExcel();
     	jobWriter.setOutputFile("Stewart_Concrete_Finishing.xls");
     	jobWriter.write(job); //Adds new row to excel file
-    	System.out.println("Job successfully added");
     	main.showMainItems();
     }
 
@@ -74,6 +83,7 @@ public class addJobController {
         assert jobStartDate != null : "fx:id=\"jobStartDate\" was not injected: check your FXML file 'addJob.fxml'.";
         assert jobEndDate != null : "fx:id=\"jobEndDate\" was not injected: check your FXML file 'addJob.fxml'.";
         assert saveJob != null : "fx:id=\"saveJob\" was not injected: check your FXML file 'addJob.fxml'.";
+        assert jobRequirements != null : "fx:id=\"jobRequirements\" was not injected: check your FXML file 'addJob.fxml'.";
 
     }
 }

@@ -53,7 +53,6 @@ public class addResourceController {
     	WriteExcel resourceWriter = new WriteExcel();
     	resourceWriter.setOutputFile("Stewart_Concrete_Finishing.xls");
     	resourceWriter.write(resource); //Adds new row to excel file
-    	System.out.println("Resource successfully added");
     	main.showMainItems();
     }
 

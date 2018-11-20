@@ -13,7 +13,6 @@ import javafx.stage.Stage;
 import jxl.write.WritableCellFormat;
 
 public class Main extends Application {
-
 	private static BorderPane mainLayout;
 	private Stage primaryStage;
 	private WritableCellFormat times;
@@ -47,6 +46,13 @@ public class Main extends Application {
 		loader.setLocation(Main.class.getResource("jobTable/addJob.fxml"));
 		BorderPane addJob = loader.load();
 		mainLayout.setCenter(addJob);
+	}
+	public static void showAssignResourceScene() throws IOException {
+		FXMLLoader loader = new FXMLLoader();
+		
+		loader.setLocation(Main.class.getResource("../dateCalendar/assignResource.fxml"));
+		BorderPane assignResource = loader.load();
+		mainLayout.setCenter(assignResource);
 	}
 	
 	public static void showEditJobScene() throws IOException {

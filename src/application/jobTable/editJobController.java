@@ -38,7 +38,9 @@ public class editJobController {
 
     @FXML
     private TextArea jobEndDate;
-
+    
+    @FXML
+    private TextArea jobRequirements;
     @FXML
     private Button saveJob;
 
@@ -50,12 +52,13 @@ public class editJobController {
     	String estimate = jobEstimate.getText();
     	String startDate = jobStartDate.getText();
     	String endDate = jobEndDate.getText();
-    	
-    	Job job = new Job(name, locationString, description, estimate, startDate, endDate); //Create new job to replace old job
+    	String requirements = jobRequirements.getText();
+    	Job job = new Job(name, locationString, description, estimate, startDate, endDate, requirements); //Create new job to replace old job
+    	ReadExcel.allJobs.remove(index-1);
+    	ReadExcel.allJobs.add(job);
     	WriteExcel jobWriter = new WriteExcel();
     	jobWriter.setOutputFile("Stewart_Concrete_Finishing.xls");
     	jobWriter.updateJob(job, index); //Adds new job to selected index
-    	System.out.println("Job successfully updated");
     	main.showMainItems();
     }
     
@@ -72,5 +75,6 @@ public class editJobController {
 		jobEstimate.setText(job.estimate);
 		jobStartDate.setText(job.startDate);
 		jobEndDate.setText(job.endDate);
+		jobRequirements.setText(job.requirements);
     }
 }

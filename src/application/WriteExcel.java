@@ -2,6 +2,13 @@ package application;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Locale;
 
 import application.jobTable.Job;
@@ -14,6 +21,7 @@ import jxl.WorkbookSettings;
 import jxl.format.Colour;
 import jxl.format.UnderlineStyle;
 import jxl.read.biff.BiffException;
+import jxl.write.DateFormat;
 import jxl.write.Formula;
 import jxl.write.Label;
 import jxl.write.Number;
@@ -33,14 +41,23 @@ public class WriteExcel {
 	public void setOutputFile(String inputFile) {
 		this.inputFile = inputFile;
 	}
-
+	
 	public void write(Job job) throws IOException, WriteException, BiffException {
 		File file = new File(inputFile);
 		if (file.exists()) {
 			Workbook workbookCopy = Workbook.getWorkbook(new File(inputFile)); //Get excel file
 			WritableWorkbook workbook = Workbook.createWorkbook(new File(inputFile), workbookCopy); //Make a writable excel
 			WritableSheet excelSheet = workbook.getSheet(0);  //Get sheet within excel file to edit
-			createJob(excelSheet, job.name, job.location, job.description, job.estimate, job.startDate, job.endDate); //Add job to new row
+			createJob(excelSheet, job.name, job.location, job.description, job.estimate, job.startDate, job.endDate, job.requirements); //Add job to new row
+			ReadExcel.allJobs.add(job);
+			
+			
+			WritableSheet excelSheet1 = workbook.getSheet(1);
+			for(int i=0; i < ReadExcel.allJobs.size();i++) {
+				excelSheet1.addCell(new Label(i+3, 0, "Dates"));
+			}
+			
+			
 			workbook.write(); //MUST HAVE ON ALL WRITE METHODS
 			workbook.close(); //MUST HAVE ON ALL WRITE METHODS
 
@@ -53,8 +70,8 @@ public class WriteExcel {
 			WritableSheet excelSheet = workbook.getSheet(0);
 			createLabel(excelSheet); //Creates headers
 			createContent(excelSheet); //Null method
-			createJob(excelSheet, job.name, job.location, job.description, job.estimate, job.startDate, job.endDate); //Creates a new job for the new file
-
+			createJob(excelSheet, job.name, job.location, job.description, job.estimate, job.startDate, job.endDate, job.requirements); //Creates a new job for the new file
+			
 			workbook.write();
 			workbook.close();
 		}
@@ -75,14 +92,20 @@ public class WriteExcel {
 		Workbook workbookCopy = Workbook.getWorkbook(new File(inputFile));
 		WritableWorkbook workbook = Workbook.createWorkbook(new File(inputFile), workbookCopy);
 		WritableSheet excelSheet = workbook.getSheet(0);
-
+		ReadExcel.allJobs.add(job);
 		addLabel(excelSheet, 0, index, job.name); //Gets job and replaces row with new job
 		addLabel(excelSheet, 1, index, job.location);
 		addLabel(excelSheet, 2, index, job.description);
 		addLabel(excelSheet, 3, index, job.estimate);
 		addLabel(excelSheet, 4, index, job.startDate);
 		addLabel(excelSheet, 5, index, job.endDate);
-
+		addLabel(excelSheet, 6, index, job.requirements);
+		
+		WritableSheet excelSheet1 = workbook.getSheet(1);
+		for(int i=0; i < ReadExcel.allJobs.size();i++) {
+			excelSheet1.addCell(new Label(i+3, 0, "Dates"));
+		}
+	
 		workbook.write();
 		workbook.close();
 	}
@@ -92,26 +115,80 @@ public class WriteExcel {
 		Workbook workbookCopy = Workbook.getWorkbook(new File(inputFile));
 		WritableWorkbook workbook = Workbook.createWorkbook(new File(inputFile), workbookCopy);
 		WritableSheet excelSheet = workbook.getSheet(1);
-
+		String blank = "";
 		addLabel(excelSheet, 0, index, resource.name); //Gets job and replaces row with new job
 		addLabel(excelSheet, 1, index, resource.quantity);
 		addLabel(excelSheet, 2, index, resource.description);
+		addLabel(excelSheet, 3, index, blank);
 
 		workbook.write();
 		workbook.close();
 	}
 
 	private void createJob(WritableSheet sheet, String name, String location, String description, String estimate,
-			String startDate, String endDate) throws WriteException, RowsExceededException {
+		String startDate, String endDate, String requirements) throws WriteException, RowsExceededException {
 		int rows = sheet.getRows(); //Gets num of rows and adds job to bottom row
+		//working on sorting jobs in window
+//		ArrayList<Job> sortedJobs = new ArrayList<Job>();
+//		ArrayList<String> dates = new ArrayList<String>();
+//		for(int i=1;i < rows;i++) {
+//			String temp = sheet.getCell(4, i).getContents();
+//			dates.add(temp);
+//		}
+//		Collections.sort(dates, new Comparator<String>() {
+//	        SimpleDateFormat f = new SimpleDateFormat("MM/dd/yyyy '@'hh:mm a");
+//	        @Override
+//	        public int compare(String o1, String o2) {
+//	            try {
+//	                return f.parse(o1).compareTo(f.parse(o2));
+//	            } catch (ParseException e) {
+//	                throw new IllegalArgumentException(e);
+//	            }
+//	        }
+//	    });
+		//System.out.println(dates.toString());
 		addLabel(sheet, 0, rows, name);
 		addLabel(sheet, 1, rows, location);
 		addLabel(sheet, 2, rows, description);
 		addLabel(sheet, 3, rows, estimate);
 		addLabel(sheet, 4, rows, startDate);
 		addLabel(sheet, 5, rows, endDate);
+		addLabel(sheet, 6, rows, requirements);
+		
 	}
-
+	
+	public void writeResourceInUse(String date, String resourcename) throws IOException, WriteException, BiffException {
+		WriteExcel jobWriter = new WriteExcel();
+    	jobWriter.setOutputFile("Stewart_Concrete_Finishing.xls");
+		String file = "Stewart_Concrete_Finishing.xls";
+		Workbook workbookCopy = Workbook.getWorkbook(new File(file));
+		WritableWorkbook workbook = Workbook.createWorkbook(new File(file), workbookCopy);
+		WritableSheet excelSheet = workbook.getSheet(1);
+		//createResource(excelSheet, resource.name, resource.quantity, resource.description); //Add job to new row
+		int rows = 0; //Gets num of rows and adds job to bottom row
+		String[] rn = resourcename.split(",");
+		date = date.substring(1, date.length()-1);
+		for(int i =0; i < rn.length;i++) {
+			for(int j=0; j< ReadExcel.allResources.size();j++) {
+				if(ReadExcel.allResources.get(j).name.equals(rn[i])) {
+					rows = j+1;
+				}
+			}
+		}
+		for(int i = 0;i < ReadExcel.allJobs.size();i++) {
+			Cell cell = excelSheet.getCell(i+3, rows);
+			if(cell.getContents().isEmpty()) {
+				Label label;
+				label = new Label(i+3, rows, date);
+				excelSheet.addCell(label);
+				workbook.write();
+				workbook.close();
+				i = ReadExcel.allJobs.size();
+			}
+		}
+		
+		
+	}
 	private void createResource(WritableSheet sheet, String name, String quantity, String description) throws WriteException, RowsExceededException {
 		int rows = sheet.getRows(); //Gets num of rows and adds job to bottom row
 //		for (int i = 0; i < rows; i++) {
@@ -128,7 +205,8 @@ public class WriteExcel {
 		Workbook workbookCopy = Workbook.getWorkbook(new File(inputFile));
 		WritableWorkbook workbook = Workbook.createWorkbook(new File(inputFile), workbookCopy);
 		WritableSheet excelSheet = workbook.getSheet(0);
-
+		int removeindex = index-1;
+		ReadExcel.allJobs.remove(removeindex);
 		excelSheet.removeRow(index);
 
 		workbook.write();
@@ -218,12 +296,6 @@ public class WriteExcel {
 			throws WriteException, RowsExceededException {
 		Label label;
 		label = new Label(column, row, s);
-		
-		//below is for formatting spreadsheet colors, not used
-//		if (s.equals("0")) {
-//			label = new Label(column, row, s, getCellFormat(Colour.RED));
-//			System.out.println("test");
-//		}
 		sheet.addCell(label);
 	}
 	
@@ -232,7 +304,6 @@ public class WriteExcel {
 	    WritableCellFormat cellFormat = new WritableCellFormat(cellFont);
 	    cellFormat.setBackground(colour);
 	    cellFont.setBoldStyle(WritableFont.BOLD);
-	    System.out.println("test2");
 	    return cellFormat;
 	  }
 
