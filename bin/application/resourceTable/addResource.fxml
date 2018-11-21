@@ -20,10 +20,10 @@
          </font></Button>
    </bottom>
    <center>
-      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <HBox minHeight="100.0" minWidth="200.0" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
             <VBox maxWidth="187.5" minWidth="187.5" prefHeight="200.0" prefWidth="187.5" />
-            <VBox maxWidth="225.0" prefHeight="200.0" prefWidth="225.0">
+            <VBox maxHeight="350.0" maxWidth="225.0" minHeight="350.0" minWidth="225.0" prefHeight="350.0" prefWidth="225.0">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Resource Name:" textAlignment="CENTER" wrappingWidth="225.0">
                      <font>

@@ -2,6 +2,8 @@ package application.jobTable;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 import application.Main;
@@ -11,6 +13,7 @@ import application.view.MainItemsController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
@@ -37,10 +40,17 @@ public class editJobController {
     private TextArea jobStartDate;
 
     @FXML
+    private DatePicker jobStartDateDP;
+
+    @FXML
     private TextArea jobEndDate;
     
     @FXML
+    private DatePicker jobEndDateDP;
+    
+    @FXML
     private TextArea jobRequirements;
+    
     @FXML
     private Button saveJob;
 
@@ -50,8 +60,8 @@ public class editJobController {
     	String locationString = jobLocation.getText();
     	String description = jobDescription.getText();
     	String estimate = jobEstimate.getText();
-    	String startDate = jobStartDate.getText();
-    	String endDate = jobEndDate.getText();
+    	String startDate = jobStartDateDP.getValue().format(DateTimeFormatter.ofPattern("MM/dd/uuuu"));
+    	String endDate = jobEndDateDP.getValue().format(DateTimeFormatter.ofPattern("MM/dd/uuuu"));
     	String requirements = jobRequirements.getText();
     	Job job = new Job(name, locationString, description, estimate, startDate, endDate, requirements); //Create new job to replace old job
     	ReadExcel.allJobs.remove(index-1);
@@ -69,12 +79,16 @@ public class editJobController {
 		Job job = reader.readJob(mainItems.getSelectedIndex()); //Gets selected job to inject into new window
 		index = mainItems.getSelectedIndex();
 		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/uuuu");
+		LocalDate startDateLD = LocalDate.parse(job.startDate, formatter);
+		LocalDate endDateLD = LocalDate.parse(job.endDate, formatter);
+		
 		jobName.setText(job.name); //Sets textFields with selected job attributes to be edited 
 		jobLocation.setText(job.location);
 		jobDescription.setText(job.description);
 		jobEstimate.setText(job.estimate);
-		jobStartDate.setText(job.startDate);
-		jobEndDate.setText(job.endDate);
+		jobStartDateDP.setValue(startDateLD);
+		jobEndDateDP.setValue(endDateLD);
 		jobRequirements.setText(job.requirements);
     }
 }

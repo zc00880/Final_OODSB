@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -70,10 +71,10 @@
                         <Font size="24.0" />
                      </font>
                   </Text>
-                  <TextArea fx:id="jobStartDate" prefHeight="28.0" prefWidth="226.0" wrapText="true" />
+                  <DatePicker fx:id="jobStartDateDP" prefHeight="50.0" prefWidth="226.0" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="225.0">
                      <font>
-                        <Font size="24.0" />
+                        <Font size="20.0" />
                      </font>
                   </Text>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Job End Date:" textAlignment="CENTER" wrappingWidth="225.0">
@@ -81,7 +82,7 @@
                         <Font size="24.0" />
                      </font>
                   </Text>
-                  <TextArea fx:id="jobEndDate" prefHeight="28.0" prefWidth="226.0" wrapText="true" />
+                  <DatePicker fx:id="jobEndDateDP" prefHeight="50.0" prefWidth="226.0" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="225.0">
                      <font>
                         <Font size="24.0" />
@@ -104,7 +105,7 @@
       </HBox>
    </center>
    <bottom>
-      <Button fx:id="saveJob" maxHeight="35.0" maxWidth="70.0" minHeight="35.0" minWidth="70.0" mnemonicParsing="false" onAction="#saveJob" text="Save" textAlignment="JUSTIFY" BorderPane.alignment="CENTER">
+      <Button fx:id="saveJob" maxHeight="35.0" maxWidth="100.0" minHeight="35.0" minWidth="100.0" mnemonicParsing="false" onAction="#saveJob" text="Save" textAlignment="JUSTIFY" BorderPane.alignment="CENTER">
          <font>
             <Font size="18.0" />
          </font>

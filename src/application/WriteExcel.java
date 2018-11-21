@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -275,6 +276,24 @@ public class WriteExcel {
 		 * "Boring text " + i); // Second column addLabel(sheet, 1, i, "Another text");
 		 * }
 		 */
+	}
+	
+	private void formatExcel(WritableSheet sheet) throws RowsExceededException, WriteException {
+		for (int i = 0; i < sheet.getColumns(); i++) {
+			for (int j = 1; j < sheet.getRows() - 1; j++) {
+				String cellOneString = sheet.getCell(i, j).getContents();
+				String cellTwoString = sheet.getCell(i, j + 1).getContents();
+				
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/uuuu");
+				LocalDate dateOne = LocalDate.parse(cellOneString, formatter);
+				LocalDate dateTwo = LocalDate.parse(cellTwoString, formatter);
+				
+				addLabel(sheet, i, j, cellTwoString);
+				addLabel(sheet, i, j + 1, cellOneString);
+			}
+		}
+		
+		//ONLY PROBLEM IS TO KEEP ON REASSIGNING DATES UNTIL THE DATE IS IN THE CORRECT ORDER USING localdate.compareto(localdate)
 	}
 
 

@@ -2,10 +2,12 @@ package application.jobTable;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
@@ -44,9 +46,15 @@ public class addJobController {
 
     @FXML
     private TextArea jobStartDate;
+    
+    @FXML
+    private DatePicker jobStartDateDP;
 
     @FXML
     private TextArea jobEndDate;
+    
+    @FXML
+    private DatePicker jobEndDateDP;
     
     @FXML
     private TextArea jobRequirements;
@@ -60,8 +68,8 @@ public class addJobController {
     	locationString = jobLocation.getText();
     	description = jobDescription.getText();
     	estimate = jobEstimate.getText();
-    	startDate = jobStartDate.getText();
-    	endDate = jobEndDate.getText();
+    	startDate = jobStartDateDP.getValue().format(DateTimeFormatter.ofPattern("MM/dd/uuuu"));
+    	endDate = jobEndDateDP.getValue().format(DateTimeFormatter.ofPattern("MM/dd/uuuu"));
     	requirements = jobRequirements.getText();
     	//dateController.addDates(startDate,endDate);
     	dateController dc = new dateController();
