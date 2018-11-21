@@ -204,7 +204,7 @@ public class dateController {
 		
 		Job j = ReadExcel.allJobs.get(myIndex);
 		jobName.setText("Job Name: " + j.name);
-		jobLocation.setText("Locaiton: " + j.location);
+		jobLocation.setText("Location: " + j.location);
 		jobEstimate.setText("Estimate: " + j.estimate);
 		jobStartDate.setText("Start Date: " + j.startDate);
 		jobEndDate.setText("End Date: " + j.endDate);
