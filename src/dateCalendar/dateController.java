@@ -16,6 +16,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -65,9 +68,20 @@ public class dateController {
 
 	@FXML
 	private VBox checkboxVbox;
+	
+	@FXML
+	private ScrollPane checkboxScrollPane;
 
 	@FXML
 	private Button addResourcetoJob;
+	
+	@FXML
+	void addvboxtoscrollpane (ActionEvent event) {
+		checkboxScrollPane.setContent(checkboxVbox);
+		checkboxScrollPane.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
+		checkboxScrollPane.maxHeight(Integer.MAX_VALUE);
+	}
+	
 	@FXML
 	void addResourcetoJob(ActionEvent event) throws WriteException, BiffException, IOException {
 		String temp = jobRequirements.getText();
@@ -80,7 +94,9 @@ public class dateController {
 				}else {
 					myResourceName = myResourceName + ","+ checkBoxes.get(i).getText().toString();
 				}
-				checkboxVbox.getChildren().remove(i+1);
+//				checkboxVbox.getChildren().remove(i+1);
+				checkboxVbox.getChildren().remove(i);
+				//checkboxVbox.getChildren().remove(i);
 				checkBoxes.remove(i);
 
 				String s = myStartDate;
@@ -192,14 +208,12 @@ public class dateController {
 	public void initialize() throws BiffException, IOException{
 		ArrayList<String> inuse = new ArrayList<String>();
 		ArrayList<Integer> notinuse = new ArrayList<Integer>();
+		
 		inuse.clear();
 		notinuse.clear();
 		resourceNames.clear();
 		checkBoxes.clear();
 		resourceNameChecker.clear();
-		
-		
-		
 		int myIndex = getIndex();
 		
 		Job j = ReadExcel.allJobs.get(myIndex);
@@ -224,6 +238,7 @@ public class dateController {
 		jobRequirements.setText(jobreq);
 		for(int i=0;i<notinuse.size();i++) {
 			resourceNames.add(ReadExcel.allResources.get(notinuse.get(i)).name);
+			
 			checkBoxes.add(new CheckBox(ReadExcel.allResources.get(notinuse.get(i)).name));
 		}
 
@@ -232,6 +247,7 @@ public class dateController {
 		//			checkBoxes.add(new CheckBox(ReadExcel.allResources.get(i).name));
 		//			
 		//		}
+		//checkboxVbox.getChildren().addAll(checkBoxes);
 		checkboxVbox.getChildren().addAll(checkBoxes);
 		myStartDate = j.startDate;
 		myEndDate = j.endDate;
