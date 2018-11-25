@@ -70,7 +70,6 @@ public class WriteExcel {
 			workbook.createSheet("Report", 0);
 			WritableSheet excelSheet = workbook.getSheet(0);
 			createLabel(excelSheet); //Creates headers
-			createContent(excelSheet); //Null method
 			createJob(excelSheet, job.name, job.location, job.description, job.estimate, job.startDate, job.endDate, job.requirements); //Creates a new job for the new file
 			
 			workbook.write();
@@ -129,25 +128,7 @@ public class WriteExcel {
 	private void createJob(WritableSheet sheet, String name, String location, String description, String estimate,
 		String startDate, String endDate, String requirements) throws WriteException, RowsExceededException {
 		int rows = sheet.getRows(); //Gets num of rows and adds job to bottom row
-		//working on sorting jobs in window
-//		ArrayList<Job> sortedJobs = new ArrayList<Job>();
-//		ArrayList<String> dates = new ArrayList<String>();
-//		for(int i=1;i < rows;i++) {
-//			String temp = sheet.getCell(4, i).getContents();
-//			dates.add(temp);
-//		}
-//		Collections.sort(dates, new Comparator<String>() {
-//	        SimpleDateFormat f = new SimpleDateFormat("MM/dd/yyyy '@'hh:mm a");
-//	        @Override
-//	        public int compare(String o1, String o2) {
-//	            try {
-//	                return f.parse(o1).compareTo(f.parse(o2));
-//	            } catch (ParseException e) {
-//	                throw new IllegalArgumentException(e);
-//	            }
-//	        }
-//	    });
-		//System.out.println(dates.toString());
+
 		addLabel(sheet, 0, rows, name);
 		addLabel(sheet, 1, rows, location);
 		addLabel(sheet, 2, rows, description);
@@ -192,9 +173,6 @@ public class WriteExcel {
 	}
 	private void createResource(WritableSheet sheet, String name, String quantity, String description) throws WriteException, RowsExceededException {
 		int rows = sheet.getRows(); //Gets num of rows and adds job to bottom row
-//		for (int i = 0; i < rows; i++) {
-//			
-//		}
 		
 		addLabel(sheet, 0, rows, name);
 		addLabel(sheet, 1, rows, quantity);
@@ -255,60 +233,11 @@ public class WriteExcel {
 
 	}
 
-	private void createContent(WritableSheet sheet) throws WriteException, RowsExceededException {
-		// Write a few number
-		/*
-		 * for (int i = 1; i < 10; i++) { // First column addNumber(sheet, 0, i, i +
-		 * 10); // Second column addNumber(sheet, 1, i, i * i); addLabel(sheet, 0, 1,
-		 * "name"); }
-		 */
-		// Lets calculate the sum of it
-		/*
-		 * StringBuffer buf = new StringBuffer(); buf.append("SUM(A2:A10)"); Formula f =
-		 * new Formula(0, 10, buf.toString()); sheet.addCell(f); buf = new
-		 * StringBuffer(); buf.append("SUM(B2:B10)"); f = new Formula(1, 10,
-		 * buf.toString()); sheet.addCell(f);
-		 */
-
-		// now a bit of text
-		/*
-		 * for (int i = 12; i < 20; i++) { // First column addLabel(sheet, 0, i,
-		 * "Boring text " + i); // Second column addLabel(sheet, 1, i, "Another text");
-		 * }
-		 */
-	}
-	
-	private void formatExcel(WritableSheet sheet) throws RowsExceededException, WriteException {
-		for (int i = 0; i < sheet.getColumns(); i++) {
-			for (int j = 1; j < sheet.getRows() - 1; j++) {
-				String cellOneString = sheet.getCell(i, j).getContents();
-				String cellTwoString = sheet.getCell(i, j + 1).getContents();
-				
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/uuuu");
-				LocalDate dateOne = LocalDate.parse(cellOneString, formatter);
-				LocalDate dateTwo = LocalDate.parse(cellTwoString, formatter);
-				
-				addLabel(sheet, i, j, cellTwoString);
-				addLabel(sheet, i, j + 1, cellOneString);
-			}
-		}
-		
-		//ONLY PROBLEM IS TO KEEP ON REASSIGNING DATES UNTIL THE DATE IS IN THE CORRECT ORDER USING localdate.compareto(localdate)
-	}
-
-
 	private void addCaption(WritableSheet sheet, int column, int row, String s)
 			throws RowsExceededException, WriteException {
 		Label label;
 		label = new Label(column, row, s, timesBoldUnderline);
 		sheet.addCell(label);
-	}
-
-	private void addNumber(WritableSheet sheet, int column, int row, Integer integer)
-			throws WriteException, RowsExceededException {
-		Number number;
-		number = new Number(column, row, integer, times);
-		sheet.addCell(number);
 	}
 
 	private void addLabel(WritableSheet sheet, int column, int row, String s)
@@ -317,20 +246,8 @@ public class WriteExcel {
 		label = new Label(column, row, s);
 		sheet.addCell(label);
 	}
-	
-	private WritableCellFormat getCellFormat(Colour colour) throws WriteException {
-	    WritableFont cellFont = new WritableFont(WritableFont.COURIER, 12);
-	    WritableCellFormat cellFormat = new WritableCellFormat(cellFont);
-	    cellFormat.setBackground(colour);
-	    cellFont.setBoldStyle(WritableFont.BOLD);
-	    return cellFormat;
-	  }
 
 	public static void main(String[] args) throws WriteException, IOException, BiffException {
-		/*WriteExcel test = new WriteExcel();
-		String fileName = "test";
-		test.setOutputFile(System.getProperty("user.home") + "/Desktop/" + fileName + ".xls");
-		test.write();
-		System.out.println("Please check the result file under F:/Downloads/test.xls ");*/
+
 	}
 }

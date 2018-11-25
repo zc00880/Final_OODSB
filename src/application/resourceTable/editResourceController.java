@@ -31,7 +31,7 @@ public class editResourceController {
     private TextArea resourceDescription;
 
     @FXML
-    private Button saveResource;
+    private Button editResource;
 
     @FXML
     void editResource(ActionEvent event) throws WriteException, BiffException, IOException {

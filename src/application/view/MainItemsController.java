@@ -15,7 +15,7 @@ import application.Main;
 import application.ReadExcel;
 import application.WriteExcel;
 import application.jobTable.Job;
-import dateCalendar.dateSelection;
+import application.dateCalendar.dateController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -35,7 +35,6 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
-import dateCalendar.dateController;
 
 public class MainItemsController implements Initializable {
 	private Main main;
@@ -51,9 +50,6 @@ public class MainItemsController implements Initializable {
 
 	@FXML
 	public ListView<String> dateList;
-
-	//	@FXML
-	//	private TextField textBox;
 
 	@FXML
 	private DatePicker dateString;
@@ -71,7 +67,6 @@ public class MainItemsController implements Initializable {
 		String day = date.substring(3,5);
 		String year = date.substring(6,10);
 		String jobDateTotal = year + "-" +month +"-" +day;
-		ArrayList<String> remove = new ArrayList<String>(); 
 		boolean done = false;
 		int j=0;
 		for(int i=0;i<ReadExcel.allJobs.size();i++) {
@@ -111,8 +106,6 @@ public class MainItemsController implements Initializable {
 				j++;
 			}
 		}
-//		BackgroundFill myBF = new BackgroundFill(Color.RED, new CornerRadii(1),new Insets(0.0,0.0,0.0,0.0));
-//		dateList.setBackground(new Background(myBF));
 		dateList.setItems(dayInfo);
 
 	}
@@ -171,8 +164,6 @@ public class MainItemsController implements Initializable {
 			ObservableList<String> resourceNames = reader.readResourceNames(); //Get all job names from excel file
 			jobList.setItems(jobNames); //Show job names
 			resourceList.setItems(resourceNames);
-			//BackgroundFill myBF = new BackgroundFill(Color.RED, new CornerRadii(1),new Insets(0.0,0.0,0.0,0.0));
-			//jobList.setBackground(new Background(myBF));
 
 			resourceList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 

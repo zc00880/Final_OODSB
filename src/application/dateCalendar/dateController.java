@@ -1,4 +1,4 @@
-package dateCalendar;
+package application.dateCalendar;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import application.ReadExcel;
 import application.WriteExcel;
 import application.jobTable.Job;
-import application.resourceTable.Resource;
 import application.view.MainItemsController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,7 +15,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TextArea;
@@ -26,8 +24,6 @@ import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
-import jxl.write.WritableSheet;
-import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 
 public class dateController {
@@ -40,7 +36,6 @@ public class dateController {
 	public String myEndDate;
 	public String myResourceName="";
 	public ArrayList<String> resourceNameChecker = new ArrayList<String>();
-
 
 	@FXML
 	private Text jobName;
@@ -94,9 +89,7 @@ public class dateController {
 				}else {
 					myResourceName = myResourceName + ","+ checkBoxes.get(i).getText().toString();
 				}
-//				checkboxVbox.getChildren().remove(i+1);
 				checkboxVbox.getChildren().remove(i);
-				//checkboxVbox.getChildren().remove(i);
 				checkBoxes.remove(i);
 
 				String s = myStartDate;
@@ -129,13 +122,8 @@ public class dateController {
 
 				WriteExcel we = new WriteExcel();
 				we.writeResourceInUse(totalDatesString.toString(), myResourceName);
-
-
-
 			}
-
 		}
-
 	}
 
 	@FXML
@@ -143,14 +131,7 @@ public class dateController {
 		jobDatesStart.add(start);
 		jobDatesEnd.add(end);
 	}
-	@FXML
-	public void assign(Job j) {
-		//		System.out.println(j.name);
-		//		String x = j.name;
-		String x = "Hey";
-		//jobName.
-
-	}
+	
 	public ArrayList<String> resourceCheck() {
 		ArrayList<String> resourceChecker = new ArrayList<String>();
 		try {
@@ -222,7 +203,6 @@ public class dateController {
 		jobEstimate.setText("Estimate: " + j.estimate);
 		jobStartDate.setText("Start Date: " + j.startDate);
 		jobEndDate.setText("End Date: " + j.endDate);
-		//jobRequirements.setText("Requirements: " + j.requirements);
 		String jobreq = "Requirements: " + j.requirements + "\n";
 		
 		inuse = resourceCheck();
@@ -241,13 +221,6 @@ public class dateController {
 			
 			checkBoxes.add(new CheckBox(ReadExcel.allResources.get(notinuse.get(i)).name));
 		}
-
-		//		for(int i=0; i<ReadExcel.allResources.size();i++) {
-		//			resourceNames.add(ReadExcel.allResources.get(i).name);
-		//			checkBoxes.add(new CheckBox(ReadExcel.allResources.get(i).name));
-		//			
-		//		}
-		//checkboxVbox.getChildren().addAll(checkBoxes);
 		checkboxVbox.getChildren().addAll(checkBoxes);
 		myStartDate = j.startDate;
 		myEndDate = j.endDate;

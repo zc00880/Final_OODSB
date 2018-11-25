@@ -39,9 +39,6 @@ public class addResourceController {
 
     @FXML
     private Button saveResource;
-    
-//    @FXML
-//    private ListView<Resource> myListView;
 
     @FXML
     void saveResource(ActionEvent event) throws WriteException, BiffException, IOException {
@@ -62,6 +59,5 @@ public class addResourceController {
         assert resourceQuantity != null : "fx:id=\"resourceQuantity\" was not injected: check your FXML file 'addResource.fxml'.";
         assert resourceDescription != null : "fx:id=\"resourceDescription\" was not injected: check your FXML file 'addResource.fxml'.";
         assert saveResource != null : "fx:id=\"saveResource\" was not injected: check your FXML file 'addResource.fxml'.";
-
     }
 }

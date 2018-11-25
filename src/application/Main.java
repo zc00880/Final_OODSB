@@ -1,21 +1,16 @@
 package application;
 
 import java.io.IOException;
-import java.net.URL;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import jxl.write.WritableCellFormat;
 
 public class Main extends Application {
 	private static BorderPane mainLayout;
 	private Stage primaryStage;
-	private WritableCellFormat times;
 	
 	public void start (Stage primaryStage) throws IOException {
 		this.primaryStage = primaryStage;
@@ -47,10 +42,10 @@ public class Main extends Application {
 		BorderPane addJob = loader.load();
 		mainLayout.setCenter(addJob);
 	}
+	
 	public static void showAssignResourceScene() throws IOException {
 		FXMLLoader loader = new FXMLLoader();
-		
-		loader.setLocation(Main.class.getResource("../dateCalendar/assignResource.fxml"));
+		loader.setLocation(Main.class.getResource("dateCalendar/assignResource.fxml"));
 		BorderPane assignResource = loader.load();
 		mainLayout.setCenter(assignResource);
 	}

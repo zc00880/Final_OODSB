@@ -11,7 +11,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.resourceTable.editResourceController">
    <bottom>
-      <Button fx:id="saveResource" maxHeight="35.0" maxWidth="100.0" minHeight="35.0" minWidth="100.0" mnemonicParsing="false" onAction="#saveResource" text="Update" BorderPane.alignment="CENTER">
+      <Button fx:id="editResource" maxHeight="35.0" maxWidth="100.0" minHeight="35.0" minWidth="100.0" mnemonicParsing="false" onAction="#editResource" text="Update" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets bottom="5.0" />
          </BorderPane.margin>

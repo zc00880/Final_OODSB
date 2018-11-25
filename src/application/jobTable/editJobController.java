@@ -74,7 +74,6 @@ public class editJobController {
     
     @FXML
     public void initialize() throws BiffException, IOException{
-    	//String fileName = "test";
 		reader.setInputFile("Stewart_Concrete_Finishing.xls");
 		Job job = reader.readJob(mainItems.getSelectedIndex()); //Gets selected job to inject into new window
 		index = mainItems.getSelectedIndex();

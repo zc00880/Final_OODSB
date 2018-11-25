@@ -1,30 +1,21 @@
 package application;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 
+import application.dateCalendar.dateController;
 import application.jobTable.Job;
 import application.resourceTable.Resource;
-import dateCalendar.dateController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import jxl.Cell;
-import jxl.CellType;
 import jxl.Sheet;
 import jxl.Workbook;
-import jxl.format.CellFormat;
-import jxl.format.Colour;
 import jxl.read.biff.BiffException;
 import jxl.write.Label;
-import jxl.write.WritableCell;
-import jxl.write.WritableCellFormat;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
@@ -33,7 +24,7 @@ import jxl.write.biff.RowsExceededException;
 public class ReadExcel {
 
 	private String inputFile;
-	ArrayList<String> list = new ArrayList();
+	ArrayList<String> list = new ArrayList<String>();
 	public static ArrayList<Job> allJobs = new ArrayList<Job>();
 	public static ArrayList<Resource> allResources = new ArrayList<Resource>();
 	public void setInputFile(String inputFile) {
@@ -120,10 +111,6 @@ public class ReadExcel {
 		} catch (Exception e) {
 
 			File newSpreadsheet = new File("Stewart_Concrete_Finishing.xls");
-			Path path = Paths.get("Stewart_Concrete_Finishing.xls");
-
-			//commented out for testing purposes
-			//Files.setAttribute(path, "dos:hidden", true, LinkOption.NOFOLLOW_LINKS);
 
 			WritableWorkbook ww = Workbook.createWorkbook(newSpreadsheet);
 			WritableSheet job_Pool = ww.createSheet("Job Pool", 0);
@@ -180,7 +167,6 @@ public class ReadExcel {
 			allResources.clear();
 			for (int i = 1; i < sheet.getRows(); i++) {
 				Cell cell1_1 = sheet.getCell(0, i);
-				Cell cell2 = sheet.getCell(1, i);
 				String date="";
 				for(int j=0; j< allJobs.size();j++) {
 					Cell cell3 = sheet.getCell(j+3,i);
@@ -208,10 +194,6 @@ public class ReadExcel {
 		catch (Exception e) {
 
 			File newSpreadsheet = new File("Stewart_Concrete_Finishing.xls");
-			Path path = Paths.get("Stewart_Concrete_Finishing.xls");
-
-			//commented out for testing purposes
-			//Files.setAttribute(path, "dos:hidden", true, LinkOption.NOFOLLOW_LINKS);
 
 			WritableWorkbook ww = Workbook.createWorkbook(newSpreadsheet);
 			WritableSheet job_Pool = ww.createSheet("Job Pool", 0);
@@ -240,11 +222,7 @@ public class ReadExcel {
 	}
 
 	public static void main(String[] args) throws IOException { //Testing purposes
-		/*ReadExcel test = new ReadExcel();
-		String fileName = "test";
-		test.setInputFile(System.getProperty("user.home") + "/Desktop/" + fileName + ".xls");
-		test.readJobNames();
-		System.out.println(test.readJobNames().get(0).toString());*/
+
 	}
 
 }
