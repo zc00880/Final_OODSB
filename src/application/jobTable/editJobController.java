@@ -2,8 +2,11 @@ package application.jobTable;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import application.Main;
@@ -12,6 +15,7 @@ import application.WriteExcel;
 import application.view.MainItemsController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
@@ -63,6 +67,29 @@ public class editJobController {
     	String startDate = jobStartDateDP.getValue().format(DateTimeFormatter.ofPattern("MM/dd/uuuu"));
     	String endDate = jobEndDateDP.getValue().format(DateTimeFormatter.ofPattern("MM/dd/uuuu"));
     	String requirements = jobRequirements.getText();
+    	Date date1;
+    	Date date2;
+    	Boolean isBefore = true;
+    	try {
+			date1 = new SimpleDateFormat("MM/dd/uuuu").parse(startDate);
+			date2 = new SimpleDateFormat("MM/dd/uuuu").parse(endDate);
+			System.out.println(date1.toString() +"   -   " +date2.toString());
+			if(date1.after(date2)) {
+	    		isBefore = false;
+	    	}
+		}
+    	 catch (ParseException e) {
+ 			// TODO Auto-generated catch block
+ 			e.printStackTrace();
+ 		}
+    	if(isBefore == false) {
+    		Alert alert = new Alert(Alert.AlertType.ERROR, "Start Date is after End Date!", null);
+    		alert.setTitle("Date ERROR!");
+    		alert.showAndWait();
+    	}else {
+    	
+    	
+    	
     	Job job = new Job(name, locationString, description, estimate, startDate, endDate, requirements); //Create new job to replace old job
     	ReadExcel.allJobs.remove(index-1);
     	ReadExcel.allJobs.add(job);
@@ -70,6 +97,7 @@ public class editJobController {
     	jobWriter.setOutputFile("Stewart_Concrete_Finishing.xls");
     	jobWriter.updateJob(job, index); //Adds new job to selected index
     	main.showMainItems();
+    	}
     }
     
     @FXML
