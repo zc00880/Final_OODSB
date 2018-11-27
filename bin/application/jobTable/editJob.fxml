@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="915.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.jobTable.editJobController">
+   <center>
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox maxWidth="50.0" prefHeight="200.0" prefWidth="50.0" />
+            <VBox maxWidth="225.0" minWidth="225.0" prefHeight="200.0" prefWidth="225.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Job Name:" textAlignment="CENTER" wrappingWidth="225.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+                  <TextArea fx:id="jobName" prefHeight="28.0" prefWidth="226.0" wrapText="true" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="225.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Job Location:" textAlignment="CENTER" wrappingWidth="225.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+                  <TextArea fx:id="jobLocation" prefHeight="28.0" prefWidth="226.0" wrapText="true" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="225.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Job Description:" textAlignment="CENTER" wrappingWidth="225.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+                  <TextArea fx:id="jobDescription" prefHeight="28.0" prefWidth="226.0" wrapText="true" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="225.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+               </children>
+            </VBox>
+            <VBox layoutX="10.0" layoutY="10.0" maxWidth="50.0" prefHeight="200.0" prefWidth="50.0" />
+            <VBox layoutX="60.0" layoutY="10.0" maxWidth="225.0" minWidth="225.0" prefHeight="200.0" prefWidth="225.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Job Estimate:" textAlignment="CENTER" wrappingWidth="225.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+                  <TextArea fx:id="jobEstimate" prefHeight="28.0" prefWidth="226.0" wrapText="true" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="225.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Job Start Date:" textAlignment="CENTER" wrappingWidth="225.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+                  <DatePicker fx:id="jobStartDateDP" prefHeight="50.0" prefWidth="226.0" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="225.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Job End Date:" textAlignment="CENTER" wrappingWidth="225.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+                  <DatePicker fx:id="jobEndDateDP" prefHeight="50.0" prefWidth="226.0" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="225.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+               </children>
+            </VBox>
+            <VBox layoutX="10.0" layoutY="10.0" maxWidth="50.0" prefHeight="200.0" prefWidth="50.0" />
+            <VBox prefHeight="360.0" prefWidth="264.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Required Resources" textAlignment="CENTER" wrappingWidth="263.93359375">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+                  <TextArea fx:id="jobRequirements" prefHeight="328.0" prefWidth="264.0" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </center>
+   <bottom>
+      <Button fx:id="saveJob" maxHeight="35.0" maxWidth="100.0" minHeight="35.0" minWidth="100.0" mnemonicParsing="false" onAction="#editJob" prefHeight="35.0" prefWidth="100.0" text="Update" textAlignment="JUSTIFY" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <BorderPane.margin>
+            <Insets bottom="5.0" />
+         </BorderPane.margin>
+      </Button>
+   </bottom>
+</BorderPane>
