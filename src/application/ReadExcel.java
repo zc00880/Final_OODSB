@@ -32,7 +32,7 @@ public class ReadExcel {
 	}
 
 	public void read() throws IOException, WriteException, BiffException { //Read ALL excel file data, not used currently
-		File inputWorkbook = new File(inputFile);
+		File inputWorkbook = new File("Stewart_Concrete_Finishing.xls");
 		Workbook w;
 		try {
 			w = Workbook.getWorkbook(inputWorkbook);
@@ -52,7 +52,7 @@ public class ReadExcel {
 	}
 
 	public Job readJob(int index) throws BiffException, IOException { //Reads job row and returns job object
-		File inputWorkbook = new File(inputFile);
+		File inputWorkbook = new File("Stewart_Concrete_Finishing.xls");
 		Workbook w = Workbook.getWorkbook(inputWorkbook);
 		Sheet sheet = w.getSheet(0); //Initialize excel file
 
@@ -76,7 +76,7 @@ public class ReadExcel {
 
 	public ObservableList<String> readJobNames() throws IOException, RowsExceededException, WriteException { //Gets job names for live list on home screen
 
-		File inputWorkbook = new File(inputFile);
+		File inputWorkbook = new File("Stewart_Concrete_Finishing.xls");
 		Workbook w;
 		ObservableList<String> jobList = FXCollections.observableArrayList();
 		try {
@@ -139,7 +139,7 @@ public class ReadExcel {
 	}
 
 	public Resource readResource(int index) throws BiffException, IOException, WriteException { //Reads job row and returns job object
-		File inputWorkbook = new File(inputFile);
+		File inputWorkbook = new File("Stewart_Concrete_Finishing.xls");
 		Workbook w = Workbook.getWorkbook(inputWorkbook);
 		Sheet sheet = w.getSheet(1); //Initialize excel file
 
@@ -156,7 +156,7 @@ public class ReadExcel {
 	}
 
 	public ObservableList<String> readResourceNames() throws IOException, RowsExceededException, WriteException, BiffException {
-		File inputWorkbook = new File(inputFile);
+		File inputWorkbook = new File("Stewart_Concrete_Finishing.xls");
 		Workbook w;
 		ObservableList<String> resourceList = FXCollections.observableArrayList();
 
@@ -171,7 +171,7 @@ public class ReadExcel {
 				for(int j=0; j< allJobs.size();j++) {
 					Cell cell3 = sheet.getCell(j+3,i);
 					if(!date.isEmpty())
-						date = date+ " , " + cell3.getContents().toString();
+						date = date+ " " + cell3.getContents().toString();
 					else
 						date = cell3.getContents().toString();
 				}

@@ -116,8 +116,11 @@ public class MainItemsController implements Initializable {
 	@FXML //Delete job
 	void deleteJob(ActionEvent event) throws BiffException, IOException, WriteException {
 		WriteExcel jobWriter = new WriteExcel();
+		WriteExcel resourceWriter = new WriteExcel();
+		ReadExcel readExcel = new ReadExcel();
 		jobWriter.setOutputFile("Stewart_Concrete_Finishing.xls");
 		jobWriter.deleteJob(index);
+		resourceWriter.deleteResource(readExcel.readJob(index - 1).name);
 		main.showMainItems();
 	}
 

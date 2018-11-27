@@ -37,14 +37,14 @@ import jxl.write.biff.RowsExceededException;
 public class WriteExcel {
 	private WritableCellFormat timesBoldUnderline;
 	private WritableCellFormat times;
-	private String inputFile;
+	private String inputFile = "Stewart_Concrete_Finishing.xls";
 
 	public void setOutputFile(String inputFile) {
 		this.inputFile = inputFile;
 	}
 	
 	public void write(Job job) throws IOException, WriteException, BiffException {
-		File file = new File(inputFile);
+		File file = new File("Stewart_Concrete_Finishing.xls");
 		if (file.exists()) {
 			Workbook workbookCopy = Workbook.getWorkbook(new File(inputFile)); //Get excel file
 			WritableWorkbook workbook = Workbook.createWorkbook(new File(inputFile), workbookCopy); //Make a writable excel
@@ -54,15 +54,15 @@ public class WriteExcel {
 			
 			
 			WritableSheet excelSheet1 = workbook.getSheet(1);
-			for(int i=0; i < ReadExcel.allJobs.size();i++) {
-				excelSheet1.addCell(new Label(i+3, 0, "Dates"));
+			for(int i = 0; i < ReadExcel.allJobs.size(); i++) {
+				excelSheet1.addCell(new Label(i + 3, 0, "Dates"));
 			}
-			
 			
 			workbook.write(); //MUST HAVE ON ALL WRITE METHODS
 			workbook.close(); //MUST HAVE ON ALL WRITE METHODS
 
-		} else { //If file doesn't exist, make a new excel file on the desktop
+		} 
+		else { //If file doesn't exist, make a new excel file on the desktop
 			WorkbookSettings wbSettings = new WorkbookSettings();
 			wbSettings.setLocale(new Locale("en", "EN"));
 
@@ -78,7 +78,7 @@ public class WriteExcel {
 	}
 
 	public void write(Resource resource) throws IOException, WriteException, BiffException {
-		File file = new File(inputFile);
+		File file = new File("Stewart_Concrete_Finishing.xls");
 		Workbook workbookCopy = Workbook.getWorkbook(new File(inputFile)); //Get excel file
 		WritableWorkbook workbook = Workbook.createWorkbook(new File(inputFile), workbookCopy); //Make a writable excel
 		WritableSheet excelSheet = workbook.getSheet(1);  //Get sheet within excel file to edit
@@ -88,7 +88,7 @@ public class WriteExcel {
 	}
 
 	public void updateJob(Job job, int index) throws BiffException, IOException, RowsExceededException, WriteException {
-		File file = new File(inputFile);
+		File file = new File("Stewart_Concrete_Finishing.xls");
 		Workbook workbookCopy = Workbook.getWorkbook(new File(inputFile));
 		WritableWorkbook workbook = Workbook.createWorkbook(new File(inputFile), workbookCopy);
 		WritableSheet excelSheet = workbook.getSheet(0);
@@ -111,7 +111,7 @@ public class WriteExcel {
 	}
 
 	public void updateResource(Resource resource , int index) throws BiffException, IOException, RowsExceededException, WriteException {
-		File file = new File(inputFile);
+		File file = new File("Stewart_Concrete_Finishing.xls");
 		Workbook workbookCopy = Workbook.getWorkbook(new File(inputFile));
 		WritableWorkbook workbook = Workbook.createWorkbook(new File(inputFile), workbookCopy);
 		WritableSheet excelSheet = workbook.getSheet(1);
@@ -149,28 +149,26 @@ public class WriteExcel {
 		//createResource(excelSheet, resource.name, resource.quantity, resource.description); //Add job to new row
 		int rows = 0; //Gets num of rows and adds job to bottom row
 		String[] rn = resourcename.split(",");
-		date = date.substring(1, date.length()-1);
-		for(int i =0; i < rn.length;i++) {
-			for(int j=0; j< ReadExcel.allResources.size();j++) {
-				if(ReadExcel.allResources.get(j).name.equals(rn[i])) {
-					rows = j+1;
-				}
-			}
-		}
-		for(int i = 0;i < ReadExcel.allJobs.size();i++) {
-			Cell cell = excelSheet.getCell(i+3, rows);
+		for(int i =0; i < rn.length;i++) 
+			for(int j=0; j < ReadExcel.allResources.size(); j++) 
+				if(ReadExcel.allResources.get(j).name.equals(rn[i])) 
+					rows = j + 1;
+
+		for(int i = 0; i < ReadExcel.allJobs.size(); i++) {
+			Cell cell = excelSheet.getCell(i + 3, rows);
 			if(cell.getContents().isEmpty()) {
 				Label label;
-				label = new Label(i+3, rows, date);
+				label = new Label(i + 3, rows, date);
 				excelSheet.addCell(label);
 				workbook.write();
 				workbook.close();
 				i = ReadExcel.allJobs.size();
 			}
 		}
-		
-		
 	}
+	
+	
+	
 	private void createResource(WritableSheet sheet, String name, String quantity, String description) throws WriteException, RowsExceededException {
 		int rows = sheet.getRows(); //Gets num of rows and adds job to bottom row
 		
@@ -180,7 +178,7 @@ public class WriteExcel {
 	}
 
 	public void deleteJob(int index) throws BiffException, IOException, WriteException {
-		File file = new File(inputFile);
+		File file = new File("Stewart_Concrete_Finishing.xls");
 		Workbook workbookCopy = Workbook.getWorkbook(new File(inputFile));
 		WritableWorkbook workbook = Workbook.createWorkbook(new File(inputFile), workbookCopy);
 		WritableSheet excelSheet = workbook.getSheet(0);
@@ -193,12 +191,27 @@ public class WriteExcel {
 	}
 
 	public void deleteResource(int index) throws BiffException, IOException, WriteException {
-		File file = new File(inputFile);
+		File file = new File("Stewart_Concrete_Finishing.xls");
 		Workbook workbookCopy = Workbook.getWorkbook(new File(inputFile));
 		WritableWorkbook workbook = Workbook.createWorkbook(new File(inputFile), workbookCopy);
 		WritableSheet excelSheet = workbook.getSheet(1);
 
 		excelSheet.removeRow(index);
+
+		workbook.write();
+		workbook.close();
+	}
+	
+	public void deleteResource(String jobName) throws BiffException, IOException, WriteException {
+		File file = new File("Stewart_Concrete_Finishing.xls");
+		Workbook workbookCopy = Workbook.getWorkbook(new File("Stewart_Concrete_Finishing.xls"));
+		WritableWorkbook workbook = Workbook.createWorkbook(new File("Stewart_Concrete_Finishing.xls"), workbookCopy);
+		WritableSheet excelSheet = workbook.getSheet(1);
+		for(int x = 0; x < excelSheet.getRows(); x++) {
+			Cell cell = excelSheet.getCell(3, x);
+			if(cell.getContents().equals(jobName));
+			excelSheet.removeRow(x);
+		}
 
 		workbook.write();
 		workbook.close();
