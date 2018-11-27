@@ -48,8 +48,14 @@
                   </HBox>
                </children>
             </VBox>
-            <VBox layoutX="14.0" layoutY="25.0" prefHeight="279.0" prefWidth="157.0">
+            <VBox layoutX="14.0" layoutY="17.0" prefHeight="346.0" prefWidth="158.0">
                <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Stewart Concrete Finishing Inc. and Acrylicon USA" textAlignment="CENTER" wrappingWidth="157.0">
+                     <font>
+                        <Font name="Bookman Old Style" size="16.0" />
+                     </font>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="157.0" />
                   <DatePicker fx:id="dateString" onAction="#setDate" prefHeight="57.0" prefWidth="158.0" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date Viewer" textAlignment="CENTER" wrappingWidth="156.3671875">
                      <font>
