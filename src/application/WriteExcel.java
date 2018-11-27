@@ -243,7 +243,6 @@ public class WriteExcel {
 		addCaption(sheet, 3, 0, "Estimate");
 		addCaption(sheet, 4, 0, "Start Date");
 		addCaption(sheet, 5, 0, "End Date");
-
 	}
 
 	private void addCaption(WritableSheet sheet, int column, int row, String s)

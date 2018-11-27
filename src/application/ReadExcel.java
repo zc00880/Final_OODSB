@@ -117,9 +117,9 @@ public class ReadExcel {
 			WritableSheet resource_Pool = ww.createSheet("Resource Pool", 1);
 
 			job_Pool.addCell(new Label(0, 0, "Job Name"));
-			job_Pool.addCell(new Label(1, 0, "Job Description"));
-			job_Pool.addCell(new Label(2, 0, "Job Estimate"));
-			job_Pool.addCell(new Label(3, 0, "Job Location"));
+			job_Pool.addCell(new Label(1, 0, "Job Location"));
+			job_Pool.addCell(new Label(2, 0, "Job Description"));
+			job_Pool.addCell(new Label(3, 0, "Job Estimate"));
 			job_Pool.addCell(new Label(4, 0, "Job Start Date"));
 			job_Pool.addCell(new Label(5, 0, "Job End Date"));
 			job_Pool.addCell(new Label(6, 0, "Requirements"));

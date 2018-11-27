@@ -86,7 +86,6 @@ public class addJobController {
 			try {
 				date1 = new SimpleDateFormat("MM/dd/uuuu").parse(startDate);
 				date2 = new SimpleDateFormat("MM/dd/uuuu").parse(endDate);
-				System.out.println(date1.toString() +"   -   " +date2.toString());
 				if(date1.after(date2)) {
 					isBefore = false;
 				}

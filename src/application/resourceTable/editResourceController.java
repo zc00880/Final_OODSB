@@ -39,11 +39,16 @@ public class editResourceController {
     	String quantity = resourceQuantity.getText();
     	String description = resourceDescription.getText();
     	
-    	Resource resource = new Resource(name, quantity, description); //Create new job to replace old job
-    	WriteExcel jobWriter = new WriteExcel();
-    	jobWriter.setOutputFile("Stewart_Concrete_Finishing.xls");
-    	jobWriter.updateResource(resource, index); //Adds new job to selected index
-    	main.showMainItems();
+		if (name.equals("")) 
+			Main.showMainItems();
+
+		else {
+			Resource resource = new Resource(name, quantity, description); //Create new job
+			WriteExcel resourceWriter = new WriteExcel();
+			resourceWriter.setOutputFile("Stewart_Concrete_Finishing.xls");
+			resourceWriter.write(resource); //Adds new row to excel file
+			main.showMainItems();
+		}
     }
     
     @FXML
