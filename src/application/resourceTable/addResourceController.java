@@ -22,42 +22,47 @@ public class addResourceController {
 	public String quantity;
 	public String description;
 
-    @FXML
-    private ResourceBundle resources;
+	@FXML
+	private ResourceBundle resources;
 
-    @FXML
-    private URL location;
+	@FXML
+	private URL location;
 
-    @FXML
-    private TextArea resourceName;
+	@FXML
+	private TextArea resourceName;
 
-    @FXML
-    private TextArea resourceQuantity;
+	@FXML
+	private TextArea resourceQuantity;
 
-    @FXML
-    private TextArea resourceDescription;
+	@FXML
+	private TextArea resourceDescription;
 
-    @FXML
-    private Button saveResource;
+	@FXML
+	private Button saveResource;
 
-    @FXML
-    void saveResource(ActionEvent event) throws WriteException, BiffException, IOException {
-    	name = resourceName.getText(); //Gets text from textFields
-    	quantity = resourceQuantity.getText();
-    	description = resourceDescription.getText();
-    	
-    	Resource resource = new Resource(name, quantity, description); //Create new job
-    	WriteExcel resourceWriter = new WriteExcel();
-    	resourceWriter.setOutputFile("Stewart_Concrete_Finishing.xls");
-    	resourceWriter.write(resource); //Adds new row to excel file
-    	main.showMainItems();
-    }
+	@FXML
+	void saveResource(ActionEvent event) throws WriteException, BiffException, IOException {
+		name = resourceName.getText(); //Gets text from textFields
+		quantity = resourceQuantity.getText();
+		description = resourceDescription.getText();
 
-    @FXML
-    void initialize() {
-        assert resourceName != null : "fx:id=\"resourceName\" was not injected: check your FXML file 'addResource.fxml'.";
-        assert resourceQuantity != null : "fx:id=\"resourceQuantity\" was not injected: check your FXML file 'addResource.fxml'.";
-        assert resourceDescription != null : "fx:id=\"resourceDescription\" was not injected: check your FXML file 'addResource.fxml'.";
-        assert saveResource != null : "fx:id=\"saveResource\" was not injected: check your FXML file 'addResource.fxml'.";
-    }
+		if (name.equals("")) 
+			Main.showMainItems();
+
+		else {
+			Resource resource = new Resource(name, quantity, description); //Create new job
+			WriteExcel resourceWriter = new WriteExcel();
+			resourceWriter.setOutputFile("Stewart_Concrete_Finishing.xls");
+			resourceWriter.write(resource); //Adds new row to excel file
+			main.showMainItems();
+		}
+	}
+
+	@FXML
+	void initialize() {
+		assert resourceName != null : "fx:id=\"resourceName\" was not injected: check your FXML file 'addResource.fxml'.";
+		assert resourceQuantity != null : "fx:id=\"resourceQuantity\" was not injected: check your FXML file 'addResource.fxml'.";
+		assert resourceDescription != null : "fx:id=\"resourceDescription\" was not injected: check your FXML file 'addResource.fxml'.";
+		assert saveResource != null : "fx:id=\"saveResource\" was not injected: check your FXML file 'addResource.fxml'.";
+	}
 }

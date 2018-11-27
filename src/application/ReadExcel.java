@@ -89,7 +89,7 @@ public class ReadExcel {
 				Cell cell4 = sheet.getCell(4,i);
 				Cell cell5 = sheet.getCell(5,i);
 				dc.addDates(cell4.getContents().toString(), cell5.getContents().toString());
-				jobList.add(cell4.getContents().toString()+"\t" +cell.getContents().toString() + " - " + cell2.getContents().toString()); //Adds all names to a list 
+				jobList.add(cell4.getContents().toString()+": " +cell.getContents().toString() + " - " + cell2.getContents().toString()); //Adds all names to a list 
 				Cell cell0_0  = sheet.getCell(0,i);
 				String jobName = cell0_0.getContents();
 				Cell cell1_1 = sheet.getCell(1,i);
@@ -176,7 +176,7 @@ public class ReadExcel {
 						date = cell3.getContents().toString();
 				}
 				
-				resourceList.add(cell1_1.getContents().toString() + " " + date); //Adds all resource names to a list 
+				resourceList.add(cell1_1.getContents().toString() + " - " + date); //Adds all resource names to a list 
 				Cell cell = sheet.getCell(0, i); //Current cell directory (x, y) axis
 				String resourceName = cell.getContents(); //Gets contents of current cell
 				cell = sheet.getCell(1, i);

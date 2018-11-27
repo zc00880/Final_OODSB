@@ -99,37 +99,37 @@ public class dateController {
 				checkboxVbox.getChildren().remove(i);				
 				checkBoxes.remove(i);				
 				
-				/*String s = myStartDate;
-				String e = myEndDate;
-
-				String monthstart = s.substring(0, 2);
-				String daystart = s.substring(3,5);
-				String yearstart = s.substring(6,10);
-				String completestart = yearstart + "-" + monthstart+ "-" + daystart;
-
-				String monthend = e.substring(0, 2);
-				String dayend = e.substring(3,5);
-				String yearend = e.substring(6,10);
-				String completeend = yearend + "-" + monthend + "-" + dayend;
-
-				LocalDate start = LocalDate.parse(completestart);
-				LocalDate end = LocalDate.parse(completeend);
-				
-				ArrayList<LocalDate> totalDates = new ArrayList<>();
-				ArrayList<String> totalDatesString = new ArrayList<>();
-				
-				while (!start.isAfter(end)) {
-					int month = start.getMonthValue();
-					int day = start.getDayOfMonth();
-					int year = start.getYear();
-					String total = month +"/"+day+"/"+year;
-					totalDates.add(start);
-					totalDatesString.add(total);
-					start = start.plusDays(1);
-				}*/
-
-				WriteExcel we = new WriteExcel();
-				we.writeResourceInUse(j.name, myResourceName);
+//				String s = myStartDate;
+//				String e = myEndDate;
+//
+//				String monthstart = s.substring(0, 2);
+//				String daystart = s.substring(3,5);
+//				String yearstart = s.substring(6,10);
+//				String completestart = yearstart + "-" + monthstart+ "-" + daystart;
+//
+//				String monthend = e.substring(0, 2);
+//				String dayend = e.substring(3,5);
+//				String yearend = e.substring(6,10);
+//				String completeend = yearend + "-" + monthend + "-" + dayend;
+//
+//				LocalDate start = LocalDate.parse(completestart);
+//				LocalDate end = LocalDate.parse(completeend);
+//				
+//				ArrayList<LocalDate> totalDates = new ArrayList<>();
+//				ArrayList<String> totalDatesString = new ArrayList<>();
+//				
+//				while (!start.isAfter(end)) {
+//					int month = start.getMonthValue();
+//					int day = start.getDayOfMonth();
+//					int year = start.getYear();
+//					String total = month +"/"+day+"/"+year;
+//					totalDates.add(start);
+//					totalDatesString.add(total);
+//					start = start.plusDays(1);
+//				}
+//
+//				WriteExcel we = new WriteExcel();
+//				we.writeResourceInUse(j.name, myResourceName);
 			}
 		}
 	}
@@ -200,10 +200,7 @@ public class dateController {
 		resourceNames.clear();
 		checkBoxes.clear();
 		resourceNameChecker.clear();
-		int myIndex = getIndex();
-		
-		System.out.println(myIndex);
-		
+		int myIndex = getIndex();		
 		j = ReadExcel.allJobs.get(myIndex);
 		jobName.setText("Job Name: " + j.name);
 		jobLocation.setText("Location: " + j.location);
@@ -224,14 +221,11 @@ public class dateController {
 		jobRequirements.setText(jobreq);
 		for(int i = 0;i < notinuse.size(); i++) {
 			resourceNames.add(ReadExcel.allResources.get(notinuse.get(i)).name);
-			//System.out.println(ReadExcel.allResources.get(notinuse.get(i)).name);
 			checkBoxes.add(new CheckBox(ReadExcel.allResources.get(notinuse.get(i)).name));
 		}
 		
 		checkboxVbox.getChildren().addAll(checkBoxes);
 		myStartDate = j.startDate;
 		myEndDate = j.endDate;
-
 	}
-	
 }
