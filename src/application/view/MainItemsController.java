@@ -24,6 +24,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
@@ -39,9 +40,10 @@ import jxl.write.WriteException;
 public class MainItemsController implements Initializable {
 	private Main main;
 	ReadExcel reader = new ReadExcel();
-	public static int index;
+	public static int index = 0;
 	public static String dateIndex;
 	ObservableList<String> dayInfo = FXCollections.observableArrayList();
+	
 	@FXML
 	private ListView<String> jobList;
 
@@ -111,24 +113,48 @@ public class MainItemsController implements Initializable {
 	}
 	@FXML
 	public void assignResource() throws IOException {
-		main.showAssignResourceScene();
+		int index1 = getSelectedIndex();
+		if (dateIndex == null) {
+			Alert alert = new Alert(Alert.AlertType.ERROR, "No job selected.", null);
+			alert.setTitle("Job ERROR!");
+			alert.showAndWait();
+		}
+		else {
+			main.showAssignResourceScene();
+			dateIndex = null;
+		}
 	}
 	@FXML //Delete job
 	void deleteJob(ActionEvent event) throws BiffException, IOException, WriteException {
 		WriteExcel jobWriter = new WriteExcel();
 		jobWriter.setOutputFile("Stewart_Concrete_Finishing.xls");
-		jobWriter.deleteJob(index);
-		main.showMainItems();
+		if (index == 0) {
+			Alert alert = new Alert(Alert.AlertType.ERROR, "No job selected.", null);
+			alert.setTitle("Job ERROR!");
+			alert.showAndWait();
+		}
+		else {
+			jobWriter.deleteJob(index);
+			//ReadExcel re = new ReadExcel();
+			//re.readResourceNames();	
+			main.showMainItems();
+		}
 	}
 
 	@FXML //delete resource
 	void deleteResource(ActionEvent event) throws BiffException, IOException, WriteException {
 		WriteExcel resourceWriter = new WriteExcel();
 		resourceWriter.setOutputFile("Stewart_Concrete_Finishing.xls");
-		resourceWriter.deleteResource(index);
-		main.showMainItems();
+		if (index == 0) {
+			Alert alert = new Alert(Alert.AlertType.ERROR, "No resource selected.", null);
+			alert.setTitle("Resource ERROR!");
+			alert.showAndWait();
+		}
+		else {
+			resourceWriter.deleteResource(index);
+			main.showMainItems();
+		}
 	}
-
 
 	public int getSelectedIndex() { //Get selected job index to perform functions throughout the program
 		return index;
@@ -141,7 +167,14 @@ public class MainItemsController implements Initializable {
 
 	@FXML
 	public void goEditJob() throws IOException {
-		main.showEditJobScene();
+		if (index == 0) {
+			Alert alert = new Alert(Alert.AlertType.ERROR, "No job selected.", null);
+			alert.setTitle("Job ERROR!");
+			alert.showAndWait();
+		}
+		else {
+			main.showEditJobScene();
+		}
 	}
 
 	@FXML
@@ -151,7 +184,14 @@ public class MainItemsController implements Initializable {
 
 	@FXML
 	public void goEditResource() throws IOException {
-		main.showEditResourceScene();
+		if (index == 0) {
+			Alert alert = new Alert(Alert.AlertType.ERROR, "No resource selected.", null);
+			alert.setTitle("resource ERROR!");
+			alert.showAndWait();
+		}
+		else {
+			main.showEditResourceScene();
+		}
 	}
 
 	@Override
@@ -180,6 +220,7 @@ public class MainItemsController implements Initializable {
 					for (int i = 0; i < jobNames.size(); i++) 
 						if (jobNames.get(i).equals(newValue)) 
 							index = i + 1;
+							
 				}
 			});
 			dateList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
@@ -190,7 +231,7 @@ public class MainItemsController implements Initializable {
 							index = i + 1;
 							dateIndex = dateList.getSelectionModel().getSelectedItems().toString();
 						}
-					
+
 				}	
 			});
 		} 

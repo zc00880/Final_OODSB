@@ -171,7 +171,12 @@ public class ReadExcel {
 				for(int j=0; j< allJobs.size();j++) {
 					Cell cell3 = sheet.getCell(j+3,i);
 					if(!date.isEmpty())
-						date = date+ " , " + cell3.getContents().toString();
+						if (cell3.getContents().toString().equals("")) {
+							break;
+						}
+						else {
+							date = date+ " , " + cell3.getContents().toString();
+						}
 					else
 						date = cell3.getContents().toString();
 				}

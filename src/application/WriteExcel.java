@@ -197,7 +197,6 @@ public class WriteExcel {
 		Workbook workbookCopy = Workbook.getWorkbook(new File(inputFile));
 		WritableWorkbook workbook = Workbook.createWorkbook(new File(inputFile), workbookCopy);
 		WritableSheet excelSheet = workbook.getSheet(1);
-
 		excelSheet.removeRow(index);
 
 		workbook.write();
